@@ -4,16 +4,12 @@
 
    * {
     box-sizing: border-box;
-
+  
     /*
-       Evita el flash azul/turquesa
-       que Chrome Android muestra al tocar.
-     */
-     -webkit-tap-highlight-color: transparent;
-   }
-   
-   [hidden] {
-     display: none !important;
+      Evita el flash azul/turquesa
+      de Chrome Android al tocar.
+    */
+    -webkit-tap-highlight-color: transparent;
   }
   
   [hidden] {
@@ -106,8 +102,7 @@
     padding: 14px 22px;
   
     border:
-      1px solid
-      rgba(255, 226, 118, 0.32);
+      1px solid rgba(255, 226, 118, 0.32);
   
     border-radius: 999px;
   
@@ -493,7 +488,7 @@
   
   
   /* ==========================================
-     8. CAPAS DE FLORES
+     8. CAPAS
      ========================================== */
   
   .flowers-layer {
@@ -530,7 +525,7 @@
   
   
   /* ==========================================
-     9. FLOR
+     9. CONTENEDOR DE FLOR
      ========================================== */
   
   .flower {
@@ -565,7 +560,7 @@
   
   
   /* ==========================================
-     10. NACIMIENTO
+     10. NACIMIENTO GENERAL
      ========================================== */
   
   .flower-grow {
@@ -576,15 +571,15 @@
       50% 100%;
   
     animation:
-      flowerGrow
-      920ms
+      flowerSettle
+      1050ms
       cubic-bezier(
         0.18,
         0.76,
         0.22,
-        1.12
+        1
       )
-      forwards;
+      both;
   }
   
   .flower--ground .flower-grow {
@@ -592,41 +587,134 @@
       50% 50%;
   }
   
-  @keyframes flowerGrow {
+  @keyframes flowerSettle {
     0% {
-      opacity: 0;
-  
       transform:
-        translateY(8px)
-        scale(0.15);
+        translateY(5px);
     }
   
-    60% {
-      opacity: 1;
-  
+    65% {
       transform:
-        translateY(-1px)
-        scale(1.07);
-    }
-  
-    82% {
-      transform:
-        translateY(0)
-        scale(0.98);
+        translateY(-1px);
     }
   
     100% {
-      opacity: 1;
-  
       transform:
-        translateY(0)
-        scale(1);
+        translateY(0);
     }
   }
   
   
   /* ==========================================
-     11. BRISA
+     11. ONDA DE BRISA FINAL
+     ========================================== */
+  
+  .flower-wave {
+    width: 100%;
+    height: 100%;
+  
+    transform-origin:
+      50% 96%;
+  }
+  
+  .flower--ground .flower-wave {
+    transform-origin:
+      50% 50%;
+  }
+  
+  .field.final-wind-wave
+  .flower:not(.flower--ground)
+  .flower-wave {
+    animation:
+      finalWindWave
+      1450ms
+      cubic-bezier(
+        0.22,
+        0.61,
+        0.32,
+        1
+      )
+      var(--wave-delay)
+      both;
+  }
+  
+  .field.final-wind-wave
+  .flower--ground
+  .flower-wave {
+    animation:
+      finalGroundWindWave
+      1250ms
+      ease-in-out
+      var(--wave-delay)
+      both;
+  }
+  
+  @keyframes finalWindWave {
+    0% {
+      transform:
+        rotate(0deg)
+        translateX(0);
+    }
+  
+    22% {
+      transform:
+        rotate(0.8deg)
+        translateX(0.5px);
+    }
+  
+    48% {
+      transform:
+        rotate(-3.1deg)
+        translateX(-1.8px);
+    }
+  
+    70% {
+      transform:
+        rotate(1.7deg)
+        translateX(1px);
+    }
+  
+    86% {
+      transform:
+        rotate(-0.5deg)
+        translateX(-0.2px);
+    }
+  
+    100% {
+      transform:
+        rotate(0deg)
+        translateX(0);
+    }
+  }
+  
+  @keyframes finalGroundWindWave {
+    0% {
+      transform:
+        rotate(0deg);
+    }
+  
+    46% {
+      transform:
+        rotate(-1.5deg)
+        translateX(-0.7px);
+    }
+  
+    72% {
+      transform:
+        rotate(0.9deg)
+        translateX(0.4px);
+    }
+  
+    100% {
+      transform:
+        rotate(0deg)
+        translateX(0);
+    }
+  }
+  
+  
+  /* ==========================================
+     12. BRISA NORMAL
      ========================================== */
   
   .flower-sway {
@@ -709,7 +797,7 @@
   
   
   /* ==========================================
-     12. SVG Y ANATOMÍA FLORAL
+     13. SVG
      ========================================== */
   
   .flower-svg {
@@ -721,26 +809,81 @@
     overflow: visible;
   }
   
-  .flower-stem {
-    fill: none;
   
-    stroke: #426d52;
+  /* ==========================================
+     14. CRECIMIENTO DEL TALLO
+     ========================================== */
   
-    stroke-width: 2.4;
-  
-    stroke-linecap: round;
-  }
-  
+  .flower-stem,
   .flower-stem-shadow {
     fill: none;
   
+    stroke-linecap: round;
+  
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  
+    animation:
+      stemRise
+      520ms
+      cubic-bezier(
+        0.22,
+        0.7,
+        0.28,
+        1
+      )
+      forwards;
+  }
+  
+  .flower-stem {
+    stroke: #426d52;
+  
+    stroke-width: 2.4;
+  }
+  
+  .flower-stem-shadow {
     stroke: #294638;
   
     stroke-width: 1.15;
   
-    stroke-linecap: round;
-  
     opacity: 0.68;
+  }
+  
+  @keyframes stemRise {
+    from {
+      stroke-dashoffset: 1;
+    }
+  
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  
+  /* ==========================================
+     15. HOJAS
+     ========================================== */
+  
+  .flower-leaf,
+  .flower-leaf-light {
+    transform-box: fill-box;
+  
+    transform-origin:
+      50% 80%;
+  
+    opacity: 0;
+  
+    animation:
+      leafUnfold
+      470ms
+      cubic-bezier(
+        0.22,
+        0.76,
+        0.28,
+        1.1
+      )
+      var(--leaf-delay)
+      forwards;
   }
   
   .flower-leaf {
@@ -749,6 +892,32 @@
   
   .flower-leaf-light {
     fill: #49775b;
+  }
+  
+  @keyframes leafUnfold {
+    0% {
+      opacity: 0;
+  
+      transform:
+        scale(0.15)
+        rotate(-8deg);
+    }
+  
+    70% {
+      opacity: 1;
+  
+      transform:
+        scale(1.08)
+        rotate(1deg);
+    }
+  
+    100% {
+      opacity: 1;
+  
+      transform:
+        scale(1)
+        rotate(0deg);
+    }
   }
   
   .leaf-vein {
@@ -760,12 +929,68 @@
   
     stroke-linecap: round;
   
-    opacity: 0.65;
+    opacity: 0;
+  
+    animation:
+      leafVeinIn
+      350ms
+      ease-out
+      620ms
+      forwards;
   }
+  
+  @keyframes leafVeinIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 0.65;
+    }
+  }
+  
+  
+  /* ==========================================
+     16. CÁLIZ
+     ========================================== */
   
   .flower-calyx-dark {
     fill: #31513e;
+  
+    transform-box: fill-box;
+  
+    transform-origin: center;
+  
+    opacity: 0;
+  
+    animation:
+      calyxOpen
+      360ms
+      ease-out
+      360ms
+      forwards;
   }
+  
+  @keyframes calyxOpen {
+    0% {
+      opacity: 0;
+  
+      transform:
+        scale(0.3);
+    }
+  
+    100% {
+      opacity: 1;
+  
+      transform:
+        scale(1);
+    }
+  }
+  
+  
+  /* ==========================================
+     17. CABEZA FLORAL
+     ========================================== */
   
   .flower-bloom {
     transform-box: fill-box;
@@ -781,38 +1006,185 @@
       );
   }
   
-  .petal-main {
-    fill:
-      var(--petal-main);
+  
+  /* ==========================================
+     18. PÉTALOS
+     ========================================== */
+  
+  .flower-petals {
+    /*
+      Este grupo es importante.
+  
+      Permite iluminar la silueta completa
+      de los pétalos SIN interferir con
+      la animación individual de apertura.
+    */
+  
+    filter: none;
+  
+    will-change: filter;
   }
   
-  .petal-light {
-    fill:
-      var(--petal-light);
+  .petal {
+    transform-box: fill-box;
+  
+    transform-origin:
+      50% 82%;
+  
+    opacity: 0;
+  
+    filter:
+      drop-shadow(
+        0 0.7px 0.45px
+        rgba(75, 48, 9, 0.24)
+      );
+  
+    animation:
+      petalUnfold
+      760ms
+      cubic-bezier(
+        0.16,
+        0.78,
+        0.22,
+        1.08
+      )
+      var(--petal-delay)
+      forwards;
   }
   
-  .petal-deep {
-    fill:
-      var(--petal-deep);
+  @keyframes petalUnfold {
+    0% {
+      opacity: 0;
+  
+      transform:
+        translateY(5px)
+        scaleX(0.22)
+        scaleY(0.22)
+        rotate(
+          var(--petal-fold)
+        );
+    }
+  
+    54% {
+      opacity: 0.94;
+  
+      transform:
+        translateY(1px)
+        scaleX(0.82)
+        scaleY(0.88)
+        rotate(0deg);
+    }
+  
+    78% {
+      opacity: 1;
+  
+      transform:
+        translateY(-0.5px)
+        scaleX(1.06)
+        scaleY(1.03)
+        rotate(0deg);
+    }
+  
+    100% {
+      opacity: 1;
+  
+      transform:
+        translateY(0)
+        scaleX(1)
+        scaleY(1)
+        rotate(0deg);
+    }
+  }
+  
+  
+  /* ==========================================
+     19. CENTRO
+     ========================================== */
+  
+  .flower-heart {
+    /*
+      Grupo independiente para que
+      la luz pueda "nacer" aquí antes
+      de llegar a los pétalos.
+    */
+  
+    filter: none;
+  
+    will-change: filter;
+  }
+  
+  .flower-center-shadow,
+  .flower-center,
+  .flower-center-light,
+  .center-speck {
+    transform-box: fill-box;
+  
+    transform-origin: center;
+  
+    opacity: 0;
+  
+    animation:
+      centerBloom
+      420ms
+      cubic-bezier(
+        0.2,
+        0.75,
+        0.24,
+        1.15
+      )
+      760ms
+      forwards;
   }
   
   .flower-center-shadow {
-    fill: #694b19;
-  
-    opacity: 0.30;
+    --center-opacity: 0.30;
   }
   
   .flower-center {
-    fill:
-      var(--flower-center);
+    --center-opacity: 1;
   }
   
   .flower-center-light {
-    fill:
-      var(--flower-center-light);
-  
-    opacity: 0.68;
+    --center-opacity: 0.68;
   }
+  
+  .center-speck {
+    --center-opacity: 0.34;
+  }
+  
+  @keyframes centerBloom {
+    0% {
+      opacity: 0;
+  
+      transform:
+        scale(0.35);
+    }
+  
+    75% {
+      opacity:
+        var(
+          --center-opacity
+        );
+  
+      transform:
+        scale(1.10);
+    }
+  
+    100% {
+      opacity:
+        var(
+          --center-opacity
+        );
+  
+      transform:
+        scale(1);
+    }
+  }
+  
+  
+  /* ==========================================
+     20. SOMBRA PEQUEÑAS
+     ========================================== */
   
   .ground-bloom-shadow {
     fill:
@@ -825,118 +1197,471 @@
   }
   
   
+
   /* ==========================================
-     13. FLORES ESPECIALES
-     ========================================== */
-  
-  .special-glint {
-    position: absolute;
-  
-    top: 30%;
-    left: 50%;
-  
-    z-index: 30;
-  
-    width: 12px;
-    height: 12px;
-  
-    border-radius: 50%;
-  
-    opacity: 0;
-  
-    transform:
-      translate(-50%, -50%)
-      scale(0.2);
-  
-    pointer-events: none;
-  
-    background:
-      radial-gradient(
-        circle,
-        rgba(255, 255, 235, 1) 0%,
-        rgba(255, 242, 168, 0.98) 18%,
-        rgba(255, 215, 83, 0.82) 38%,
-        rgba(242, 187, 43, 0.30) 60%,
-        transparent 78%
-      );
-  
-    box-shadow:
-      0 0 5px
-      rgba(255, 248, 204, 0.90),
-      0 0 11px
-      rgba(255, 220, 98, 0.70),
-      0 0 20px
-      rgba(237, 185, 43, 0.30);
-  }
-  
-  .special-glint::before,
-  .special-glint::after {
-    content: "";
-  
-    position: absolute;
-  
-    top: 50%;
-    left: 50%;
-  
-    border-radius: 999px;
-  
-    background:
-      rgba(
-        255,
-        250,
-        213,
-        0.94
-      );
-  
-    transform:
-      translate(-50%, -50%);
-  }
-  
-  .special-glint::before {
-    width: 21px;
-    height: 1px;
-  }
-  
-  .special-glint::after {
-    width: 1px;
-    height: 21px;
-  }
-  
-  
-  /* ==========================================
-     14. INTERACCIÓN DE ESPECIALES
-     ========================================== */
-  
+    21. FLORES ESPECIALES
+    BRILLO ORGÁNICO MÁS VISIBLE
+    ========================================== */
+
+  /*
+    No utilizamos ningún círculo,
+    estrella ni elemento flotando
+    sobre la flor.
+
+    La propia cabeza floral emite luz.
+  */
+
   .field[data-mode="exploration"]
   .flower.is-special {
     pointer-events: auto;
-  
+
     cursor: pointer;
-  
+
     touch-action: manipulation;
   }
-  
+
+
+  /* ==========================================
+    22. FLOR NO DESCUBIERTA
+    ========================================== */
+
+  /*
+    El centro comienza primero.
+  */
+
   .field[data-mode="exploration"]
   .flower.is-special:not(.is-discovered)
-  .special-glint {
+  .flower-heart {
     animation:
-      secretGlint
+      specialHeartGlow
       var(--glint-duration)
       ease-in-out
       var(--glint-delay)
       infinite;
   }
-  
+
+
+  /*
+    Después la luz se extiende
+    por la silueta de los pétalos.
+  */
+
+  .field[data-mode="exploration"]
+  .flower.is-special:not(.is-discovered)
+  .flower-petals {
+    animation:
+      specialPetalGlow
+      var(--glint-duration)
+      ease-in-out
+      var(--glint-delay)
+      infinite;
+  }
+
+
+  /* ==========================================
+    23. CENTRO - BRILLO PRINCIPAL
+    ========================================== */
+
+  @keyframes specialHeartGlow {
+
+    /*
+      Estado completamente normal.
+    */
+    0%,
+    5% {
+      filter:
+        brightness(1)
+        saturate(1)
+        drop-shadow(
+          0 0 0
+          rgba(255, 223, 102, 0)
+        );
+    }
+
+
+    /*
+      Empieza a calentarse.
+    */
+    8% {
+      filter:
+        brightness(1.25)
+        saturate(1.12)
+        drop-shadow(
+          0 0 2px
+          rgba(255, 226, 119, 0.55)
+        );
+    }
+
+
+    /*
+      Primer máximo.
+
+      Aquí debe notarse claramente
+      que algo ocurre dentro de la flor.
+    */
+    12% {
+      filter:
+        brightness(1.75)
+        saturate(1.22)
+        drop-shadow(
+          0 0 2px
+          rgba(255, 249, 203, 0.95)
+        )
+        drop-shadow(
+          0 0 5px
+          rgba(255, 221, 95, 0.82)
+        )
+        drop-shadow(
+          0 0 9px
+          rgba(235, 176, 31, 0.48)
+        );
+    }
+
+
+    /*
+      Baja ligeramente.
+    */
+    17% {
+      filter:
+        brightness(1.36)
+        saturate(1.12)
+        drop-shadow(
+          0 0 3px
+          rgba(255, 225, 112, 0.56)
+        )
+        drop-shadow(
+          0 0 6px
+          rgba(240, 184, 39, 0.26)
+        );
+    }
+
+
+    /*
+      Pequeño segundo latido.
+
+      Esto ayuda mucho al ojo humano
+      a identificar qué flor brilló.
+    */
+    22% {
+      filter:
+        brightness(1.56)
+        saturate(1.18)
+        drop-shadow(
+          0 0 2px
+          rgba(255, 244, 187, 0.78)
+        )
+        drop-shadow(
+          0 0 5px
+          rgba(255, 215, 74, 0.52)
+        );
+    }
+
+
+    28% {
+      filter:
+        brightness(1.18)
+        saturate(1.06)
+        drop-shadow(
+          0 0 2px
+          rgba(255, 215, 82, 0.24)
+        );
+    }
+
+
+    35%,
+    100% {
+      filter:
+        brightness(1)
+        saturate(1)
+        drop-shadow(
+          0 0 0
+          rgba(255, 223, 102, 0)
+        );
+    }
+  }
+
+
+  /* ==========================================
+    24. PÉTALOS - BRILLO PRINCIPAL
+    ========================================== */
+
+  @keyframes specialPetalGlow {
+
+    /*
+      El centro comienza primero.
+    */
+    0%,
+    9% {
+      filter:
+        brightness(1)
+        saturate(1)
+        drop-shadow(
+          0 0 0
+          rgba(255, 213, 70, 0)
+        );
+    }
+
+
+    /*
+      La iluminación empieza
+      a extenderse.
+    */
+    13% {
+      filter:
+        brightness(1.10)
+        saturate(1.06)
+        drop-shadow(
+          0 0 2px
+          rgba(255, 226, 114, 0.36)
+        );
+    }
+
+
+    /*
+      Momento principal.
+
+      Estos drop-shadow siguen
+      las formas SVG de los pétalos.
+
+      Por eso NO aparece
+      un círculo luminoso.
+    */
+    18% {
+      filter:
+        brightness(1.34)
+        saturate(1.16)
+        drop-shadow(
+          0 0 2px
+          rgba(255, 246, 188, 0.84)
+        )
+        drop-shadow(
+          0 0 5px
+          rgba(255, 217, 82, 0.64)
+        )
+        drop-shadow(
+          0 0 10px
+          rgba(229, 169, 27, 0.36)
+        );
+    }
+
+
+    /*
+      Dejamos respirar el máximo
+      durante un instante.
+    */
+    22% {
+      filter:
+        brightness(1.30)
+        saturate(1.13)
+        drop-shadow(
+          0 0 3px
+          rgba(255, 236, 147, 0.74)
+        )
+        drop-shadow(
+          0 0 7px
+          rgba(247, 197, 49, 0.43)
+        );
+    }
+
+
+    /*
+      Segundo latido.
+    */
+    27% {
+      filter:
+        brightness(1.23)
+        saturate(1.10)
+        drop-shadow(
+          0 0 2px
+          rgba(255, 239, 156, 0.55)
+        )
+        drop-shadow(
+          0 0 6px
+          rgba(244, 191, 39, 0.29)
+        );
+    }
+
+
+    /*
+      Desaparición progresiva.
+    */
+    34% {
+      filter:
+        brightness(1.08)
+        saturate(1.03)
+        drop-shadow(
+          0 0 3px
+          rgba(246, 194, 42, 0.14)
+        );
+    }
+
+
+    42%,
+    100% {
+      filter:
+        brightness(1)
+        saturate(1)
+        drop-shadow(
+          0 0 0
+          rgba(255, 213, 70, 0)
+        );
+    }
+  }
+
+
+  /* ==========================================
+    25. FLOR YA DESCUBIERTA
+    ========================================== */
+
+  /*
+    Continúa siendo especial y se puede
+    volver a tocar.
+
+    Pero una vez descubierta,
+    su brillo se vuelve bastante menor
+    para favorecer las que aún faltan.
+  */
+
   .field[data-mode="exploration"]
   .flower.is-special.is-discovered
-  .special-glint {
+  .flower-heart {
     animation:
-      secretGlintDiscovered
+      discoveredHeartGlow
       var(--glint-discovered-duration)
       ease-in-out
       var(--glint-delay)
       infinite;
   }
+
+  .field[data-mode="exploration"]
+  .flower.is-special.is-discovered
+  .flower-petals {
+    animation:
+      discoveredPetalGlow
+      var(--glint-discovered-duration)
+      ease-in-out
+      var(--glint-delay)
+      infinite;
+  }
+
+
+  /* ==========================================
+    26. CENTRO DESCUBIERTO
+    ========================================== */
+
+  @keyframes discoveredHeartGlow {
+
+    0%,
+    18% {
+      filter:
+        brightness(1)
+        saturate(1)
+        drop-shadow(
+          0 0 0
+          rgba(255, 220, 93, 0)
+        );
+    }
+
+
+    23% {
+      filter:
+        brightness(1.28)
+        saturate(1.07)
+        drop-shadow(
+          0 0 2px
+          rgba(255, 229, 126, 0.46)
+        )
+        drop-shadow(
+          0 0 4px
+          rgba(239, 182, 36, 0.20)
+        );
+    }
+
+
+    29% {
+      filter:
+        brightness(1.13)
+        saturate(1.03)
+        drop-shadow(
+          0 0 2px
+          rgba(255, 216, 80, 0.20)
+        );
+    }
+
+
+    35%,
+    100% {
+      filter:
+        brightness(1)
+        saturate(1)
+        drop-shadow(
+          0 0 0
+          rgba(255, 220, 93, 0)
+        );
+    }
+  }
+
+
+  /* ==========================================
+    27. PÉTALOS DESCUBIERTOS
+    ========================================== */
+
+  @keyframes discoveredPetalGlow {
+
+    0%,
+    21% {
+      filter:
+        brightness(1)
+        saturate(1)
+        drop-shadow(
+          0 0 0
+          rgba(247, 198, 44, 0)
+        );
+    }
+
+
+    26% {
+      filter:
+        brightness(1.11)
+        saturate(1.04)
+        drop-shadow(
+          0 0 2px
+          rgba(255, 232, 134, 0.34)
+        )
+        drop-shadow(
+          0 0 5px
+          rgba(232, 175, 28, 0.15)
+        );
+    }
+
+
+    32% {
+      filter:
+        brightness(1.05)
+        saturate(1.01)
+        drop-shadow(
+          0 0 2px
+          rgba(246, 195, 43, 0.12)
+        );
+    }
+
+
+    38%,
+    100% {
+      filter:
+        brightness(1)
+        saturate(1)
+        drop-shadow(
+          0 0 0
+          rgba(247, 198, 44, 0)
+        );
+    }
+  }
+  
+  
+  /* ==========================================
+     28. FOCO DE TECLADO
+     ========================================== */
   
   .field[data-mode="exploration"]
   .flower.is-special:focus-visible {
@@ -949,126 +1674,9 @@
     border-radius: 50%;
   }
   
-  @keyframes secretGlint {
-    0%,
-    10% {
-      opacity: 0;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(0.2);
-    }
-  
-    14% {
-      opacity: 0.30;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(0.52);
-    }
-  
-    18% {
-      opacity: 1;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(1.28);
-    }
-  
-    22% {
-      opacity: 0.42;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(0.82);
-    }
-  
-    27% {
-      opacity: 0;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(0.3);
-    }
-  
-    28%,
-    58% {
-      opacity: 0;
-    }
-  
-    63% {
-      opacity: 0.18;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(0.45);
-    }
-  
-    67% {
-      opacity: 0.72;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(1);
-    }
-  
-    71% {
-      opacity: 0.24;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(0.68);
-    }
-  
-    76%,
-    100% {
-      opacity: 0;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(0.2);
-    }
-  }
-  
-  @keyframes secretGlintDiscovered {
-    0%,
-    70% {
-      opacity: 0;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(0.2);
-    }
-  
-    76% {
-      opacity: 0.08;
-    }
-  
-    80% {
-      opacity: 0.30;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(0.72);
-    }
-  
-    85% {
-      opacity: 0.07;
-  
-      transform:
-        translate(-50%, -50%)
-        scale(0.48);
-    }
-  
-    90%,
-    100% {
-      opacity: 0;
-    }
-  }
-  
   
   /* ==========================================
-     15. NARRATIVA
+     29. NARRATIVA
      ========================================== */
   
   .narrative {
@@ -1185,7 +1793,7 @@
   
   
   /* ==========================================
-     16. CONTROLES INFERIORES
+     30. CONTROLES INFERIORES
      ========================================== */
   
   .experience-controls {
@@ -1223,11 +1831,6 @@
       opacity 500ms ease;
   }
   
-  
-  /*
-    Durante exploración pueden verse
-    un poquito mejor.
-  */
   .experience-controls.is-exploration {
     opacity: 0.62;
   }
@@ -1263,9 +1866,6 @@
       transparent;
   
     cursor: pointer;
-  
-    -webkit-tap-highlight-color:
-      transparent;
   
     transition:
       background 180ms ease,
@@ -1330,7 +1930,7 @@
   
   
   /* ==========================================
-     17. OVERLAY DE MENSAJES
+     31. OVERLAY
      ========================================== */
   
   .message-overlay {
@@ -1375,7 +1975,7 @@
   
   
   /* ==========================================
-     18. TARJETA
+     32. TARJETA
      ========================================== */
   
   .message-card {
@@ -1473,7 +2073,7 @@
   
   
   /* ==========================================
-     19. CERRAR TARJETA
+     33. CERRAR TARJETA
      ========================================== */
   
   .message-close {
@@ -1542,7 +2142,7 @@
   
   
   /* ==========================================
-     20. MÓVIL
+     34. MÓVIL
      ========================================== */
   
   @media (max-width: 480px) {
@@ -1626,7 +2226,7 @@
   
   
   /* ==========================================
-     21. REDUCCIÓN DE MOVIMIENTO
+     35. REDUCCIÓN DE MOVIMIENTO
      ========================================== */
   
   @media (
@@ -1638,21 +2238,23 @@
     .field-background::after,
     .message-overlay,
     .message-card {
-      transition-duration: 120ms;
+      transition-duration:
+        120ms;
     }
   
-    .flower-grow,
-    .ground-reveal,
-    .birth-glow {
-      animation-duration: 400ms;
-    }
-  
-    /*
-      No eliminamos la brisa.
-      Solo la hacemos más lenta.
-    */
     .flower-sway {
       animation-duration:
         12s !important;
+    }
+  
+    .petal {
+      animation-duration:
+        300ms;
+    }
+  
+    .flower-stem,
+    .flower-stem-shadow {
+      animation-duration:
+        250ms;
     }
   }
