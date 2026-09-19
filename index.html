@@ -1,0 +1,231 @@
+<!doctype html>
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+
+    <title>Flores Amarillas para Sara 💛</title>
+
+    <link
+      rel="stylesheet"
+      href="styles.css"
+    />
+  </head>
+
+  <body>
+    <main
+      class="experience"
+      id="experience"
+    >
+      <!-- =====================================
+           PANTALLA INICIAL
+           ===================================== -->
+
+      <section
+        class="start-screen"
+        id="startScreen"
+      >
+        <button
+          class="start-button"
+          id="startButton"
+          type="button"
+        >
+          Toca para comenzar 💛
+        </button>
+      </section>
+
+
+      <!-- =====================================
+           ESCENA PRINCIPAL
+           ===================================== -->
+
+      <section
+        class="scene"
+        id="scene"
+        hidden
+      >
+        <div
+          class="field"
+          id="field"
+          aria-label="Campo de flores amarillas"
+        ></div>
+
+
+        <!-- ===================================
+             NARRATIVA
+             =================================== -->
+
+        <div
+          class="narrative"
+          id="narrative"
+        >
+          <p
+            class="narrative-text"
+            id="narrativeText"
+          ></p>
+
+          <p
+            class="interaction-hint"
+            id="interactionHint"
+          >
+            Toca cualquier parte del campo
+          </p>
+        </div>
+      </section>
+
+
+      <!-- =====================================
+           CONTROLES INFERIORES
+           ===================================== -->
+
+      <div
+        class="experience-controls"
+        id="experienceControls"
+        hidden
+      >
+        <!-- REPETIR -->
+
+        <button
+          class="corner-control replay-control"
+          id="replayButton"
+          type="button"
+          aria-label="Repetir experiencia"
+          title="Repetir"
+        >
+          <span
+            class="replay-symbol"
+            aria-hidden="true"
+          >
+            ↻
+          </span>
+        </button>
+
+
+        <!-- SONIDO -->
+
+        <button
+          class="corner-control"
+          id="soundButton"
+          type="button"
+          aria-label="Silenciar música"
+          title="Sonido"
+        >
+          <!-- Sonido activado -->
+
+          <svg
+            class="sound-icon"
+            id="soundOnIcon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 9v6h4l5 4V5L9 9H5Z"
+            />
+
+            <path
+              d="M17 9.5c1.4 1.4 1.4 3.6 0 5"
+            />
+
+            <path
+              d="M19.5 7c2.8 2.8 2.8 7.2 0 10"
+            />
+          </svg>
+
+
+          <!-- Sonido silenciado -->
+
+          <svg
+            class="sound-icon"
+            id="soundOffIcon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            hidden
+          >
+            <path
+              d="M5 9v6h4l5 4V5L9 9H5Z"
+            />
+
+            <path
+              d="M17 10l4 4"
+            />
+
+            <path
+              d="M21 10l-4 4"
+            />
+          </svg>
+        </button>
+      </div>
+
+
+      <!-- =====================================
+           MENSAJES SECRETOS
+           ===================================== -->
+
+      <div
+        class="message-overlay"
+        id="messageOverlay"
+        aria-hidden="true"
+        hidden
+      >
+        <div
+          class="message-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="secretMessage"
+        >
+          <button
+            class="message-close"
+            id="messageClose"
+            type="button"
+            aria-label="Cerrar mensaje"
+          >
+            ×
+          </button>
+
+          <p
+            class="message-card-text"
+            id="secretMessage"
+          ></p>
+
+          <div
+            class="message-heart"
+            aria-hidden="true"
+          >
+            💛
+          </div>
+        </div>
+      </div>
+
+
+      <!-- =====================================
+           MÚSICA
+           =====================================
+
+           Durante el desarrollo en StackBlitz
+           cargamos el archivo desde GitHub.
+
+           GitHub Pages podrá seguir usando
+           esta misma dirección.
+      -->
+
+      <audio
+        id="backgroundMusic"
+        preload="auto"
+        loop
+      >
+        <source
+          src="https://raw.githubusercontent.com/MrCordovaS/flores-amarillas-sara/main/assets/audio/musica.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+    </main>
+
+
+    <script src="script.js"></script>
+  </body>
+</html>
