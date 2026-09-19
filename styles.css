@@ -4,6 +4,16 @@
 
    * {
     box-sizing: border-box;
+
+    /*
+       Evita el flash azul/turquesa
+       que Chrome Android muestra al tocar.
+     */
+     -webkit-tap-highlight-color: transparent;
+   }
+   
+   [hidden] {
+     display: none !important;
   }
   
   [hidden] {
