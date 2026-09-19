@@ -1,0 +1,1648 @@
+/* ==========================================
+   1. CONFIGURACIÓN GENERAL
+   ========================================== */
+
+   * {
+    box-sizing: border-box;
+  }
+  
+  [hidden] {
+    display: none !important;
+  }
+  
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  
+    width: 100%;
+    min-height: 100%;
+  }
+  
+  body {
+    font-family:
+      Inter,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+  
+    color: #f6f0df;
+  
+    background: #050f0e;
+  
+    overflow: hidden;
+  
+    overscroll-behavior: none;
+  }
+  
+  button {
+    font: inherit;
+  }
+  
+  
+  /* ==========================================
+     2. EXPERIENCIA
+     ========================================== */
+  
+  .experience {
+    position: relative;
+  
+    width: 100%;
+  
+    min-height: 100vh;
+    min-height: 100dvh;
+  
+    overflow: hidden;
+  
+    background:
+      radial-gradient(
+        circle at 52% 78%,
+        rgba(24, 64, 52, 0.22),
+        transparent 52%
+      ),
+      linear-gradient(
+        180deg,
+        #050e0e 0%,
+        #071512 48%,
+        #081b16 100%
+      );
+  }
+  
+  
+  /* ==========================================
+     3. PANTALLA INICIAL
+     ========================================== */
+  
+  .start-screen {
+    width: 100%;
+  
+    min-height: 100vh;
+    min-height: 100dvh;
+  
+    display: flex;
+  
+    align-items: center;
+    justify-content: center;
+  
+    padding: 32px;
+  
+    text-align: center;
+  }
+  
+  .start-button {
+    padding: 14px 22px;
+  
+    border:
+      1px solid
+      rgba(255, 226, 118, 0.32);
+  
+    border-radius: 999px;
+  
+    background:
+      rgba(243, 207, 72, 0.07);
+  
+    color: #f6df82;
+  
+    cursor: pointer;
+  
+    box-shadow:
+      0 0 28px
+      rgba(236, 198, 61, 0.055);
+  
+    transition:
+      transform 180ms ease,
+      background 180ms ease,
+      border-color 180ms ease;
+  }
+  
+  .start-button:active {
+    transform: scale(0.97);
+  
+    background:
+      rgba(243, 207, 72, 0.13);
+  
+    border-color:
+      rgba(255, 226, 118, 0.46);
+  }
+  
+  
+  /* ==========================================
+     4. ESCENA Y CAMPO
+     ========================================== */
+  
+  .scene {
+    position: relative;
+  
+    width: 100%;
+  
+    min-height: 100vh;
+    min-height: 100dvh;
+  
+    overflow: hidden;
+  }
+  
+  .field {
+    position: absolute;
+  
+    inset: 0;
+  
+    width: 100%;
+    height: 100%;
+  
+    cursor: pointer;
+  
+    touch-action: manipulation;
+  
+    user-select: none;
+    -webkit-user-select: none;
+  
+    --field-reveal-opacity: 0.025;
+  }
+  
+  
+  /* ==========================================
+     5. FONDO
+     ========================================== */
+  
+  .field-background {
+    position: absolute;
+  
+    inset: 0;
+  
+    z-index: 0;
+  
+    pointer-events: none;
+  
+    background:
+      radial-gradient(
+        ellipse at 18% 30%,
+        rgba(19, 51, 43, 0.12),
+        transparent 44%
+      ),
+      radial-gradient(
+        ellipse at 82% 58%,
+        rgba(22, 61, 47, 0.12),
+        transparent 46%
+      ),
+      radial-gradient(
+        ellipse at 48% 92%,
+        rgba(31, 78, 56, 0.18),
+        transparent 54%
+      );
+  }
+  
+  .field-background::before {
+    content: "";
+  
+    position: absolute;
+  
+    inset: 0;
+  
+    opacity: 0.13;
+  
+    background:
+      repeating-linear-gradient(
+        112deg,
+        transparent 0 19px,
+        rgba(71, 101, 79, 0.045) 20px 21px,
+        transparent 22px 39px
+      ),
+      repeating-linear-gradient(
+        68deg,
+        transparent 0 27px,
+        rgba(55, 86, 68, 0.035) 28px 29px,
+        transparent 30px 51px
+      );
+  }
+  
+  .field-background::after {
+    content: "";
+  
+    position: absolute;
+  
+    inset: 0;
+  
+    pointer-events: none;
+  
+    opacity:
+      var(
+        --field-reveal-opacity,
+        0.025
+      );
+  
+    background:
+      radial-gradient(
+        ellipse at 50% 68%,
+        rgba(62, 103, 74, 0.48),
+        rgba(25, 65, 50, 0.20) 48%,
+        transparent 76%
+      );
+  
+    transition:
+      opacity 1200ms ease;
+  }
+  
+  
+  /* ==========================================
+     6. VEGETACIÓN
+     ========================================== */
+  
+  .vegetation-layer {
+    position: absolute;
+  
+    inset: 0;
+  
+    z-index: 1;
+  
+    pointer-events: none;
+  }
+  
+  .vegetation-cluster {
+    position: absolute;
+  
+    width: 54px;
+    height: 54px;
+  
+    transform:
+      translate(-50%, -72%)
+      rotate(var(--veg-rotation))
+      scale(var(--veg-scale));
+  
+    transform-origin:
+      50% 100%;
+  
+    transition:
+      opacity 1200ms ease;
+  }
+  
+  .vegetation-svg {
+    display: block;
+  
+    width: 100%;
+    height: 100%;
+  
+    overflow: visible;
+  }
+  
+  .veg-stem {
+    fill: none;
+  
+    stroke: #29463a;
+  
+    stroke-width: 2;
+  
+    stroke-linecap: round;
+  
+    transition:
+      stroke 1200ms ease;
+  }
+  
+  .veg-stem-soft {
+    stroke: #223b32;
+  }
+  
+  .veg-leaf {
+    fill: #29483a;
+  
+    transition:
+      fill 1200ms ease;
+  }
+  
+  .veg-leaf-soft {
+    fill: #233e34;
+  }
+  
+  .veg-seed {
+    fill: #3c5946;
+  }
+  
+  .vegetation-cluster.is-revealed .veg-stem {
+    stroke: #3b6550;
+  }
+  
+  .vegetation-cluster.is-revealed .veg-stem-soft {
+    stroke: #315744;
+  }
+  
+  .vegetation-cluster.is-revealed .veg-leaf {
+    fill: #3b6750;
+  }
+  
+  .vegetation-cluster.is-revealed .veg-leaf-soft {
+    fill: #315743;
+  }
+  
+  .vegetation-cluster.is-revealed .veg-seed {
+    fill: #637658;
+  }
+  
+  
+  /* ==========================================
+     7. ILUMINACIÓN LOCAL
+     ========================================== */
+  
+  .reveal-layer {
+    position: absolute;
+  
+    inset: 0;
+  
+    z-index: 2;
+  
+    pointer-events: none;
+  }
+  
+  .ground-reveal {
+    position: absolute;
+  
+    width:
+      var(--reveal-size);
+  
+    aspect-ratio:
+      1.4 / 1;
+  
+    border-radius:
+      48% 52% 56% 44% /
+      54% 43% 57% 46%;
+  
+    transform:
+      translate(-50%, -50%)
+      scale(0.35);
+  
+    opacity: 0;
+  
+    background:
+      radial-gradient(
+        ellipse at 48% 50%,
+        rgba(215, 182, 66, 0.16) 0%,
+        rgba(77, 111, 72, 0.16) 32%,
+        rgba(47, 86, 62, 0.11) 53%,
+        transparent 76%
+      );
+  
+    animation:
+      groundRevealBloom
+      1450ms
+      ease-out
+      forwards;
+  }
+  
+  .birth-glow {
+    position: absolute;
+  
+    width:
+      var(--glow-size);
+  
+    aspect-ratio:
+      1.4 / 1;
+  
+    border-radius: 50%;
+  
+    transform:
+      translate(-50%, -50%)
+      scale(0.35);
+  
+    opacity: 0;
+  
+    background:
+      radial-gradient(
+        ellipse,
+        rgba(242, 203, 65, 0.30) 0%,
+        rgba(204, 170, 55, 0.11) 38%,
+        transparent 72%
+      );
+  
+    animation:
+      birthGlowBloom
+      1550ms
+      ease-out
+      forwards;
+  }
+  
+  @keyframes groundRevealBloom {
+    0% {
+      opacity: 0;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.35);
+    }
+  
+    46% {
+      opacity:
+        var(--reveal-peak-opacity);
+  
+      transform:
+        translate(-50%, -50%)
+        scale(1.06);
+    }
+  
+    100% {
+      opacity:
+        var(--reveal-rest-opacity);
+  
+      transform:
+        translate(-50%, -50%)
+        scale(1);
+    }
+  }
+  
+  @keyframes birthGlowBloom {
+    0% {
+      opacity: 0;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.32);
+    }
+  
+    36% {
+      opacity:
+        var(--glow-peak-opacity);
+    }
+  
+    68% {
+      opacity:
+        var(--glow-mid-opacity);
+  
+      transform:
+        translate(-50%, -50%)
+        scale(1.06);
+    }
+  
+    100% {
+      opacity: 0;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(1.18);
+    }
+  }
+  
+  
+  /* ==========================================
+     8. CAPAS DE FLORES
+     ========================================== */
+  
+  .flowers-layer {
+    position: absolute;
+  
+    inset: 0;
+  
+    pointer-events: none;
+  }
+  
+  .flowers-back {
+    z-index: 3;
+  }
+  
+  .flowers-mid {
+    z-index: 4;
+  }
+  
+  .flowers-front {
+    z-index: 5;
+  }
+  
+  .flowers-back .flower-svg {
+    opacity: 0.86;
+  }
+  
+  .flowers-mid .flower-svg {
+    opacity: 0.94;
+  }
+  
+  .flowers-front .flower-svg {
+    opacity: 1;
+  }
+  
+  
+  /* ==========================================
+     9. FLOR
+     ========================================== */
+  
+  .flower {
+    position: absolute;
+  
+    width: 62px;
+    height: 84px;
+  
+    transform:
+      translate(-50%, -100%)
+      rotate(var(--flower-rotation))
+      scale(var(--flower-scale));
+  
+    transform-origin:
+      50% 100%;
+  
+    pointer-events: none;
+  }
+  
+  .flower--ground {
+    width: 40px;
+    height: 40px;
+  
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--flower-rotation))
+      scale(var(--flower-scale));
+  
+    transform-origin:
+      50% 50%;
+  }
+  
+  
+  /* ==========================================
+     10. NACIMIENTO
+     ========================================== */
+  
+  .flower-grow {
+    width: 100%;
+    height: 100%;
+  
+    transform-origin:
+      50% 100%;
+  
+    animation:
+      flowerGrow
+      920ms
+      cubic-bezier(
+        0.18,
+        0.76,
+        0.22,
+        1.12
+      )
+      forwards;
+  }
+  
+  .flower--ground .flower-grow {
+    transform-origin:
+      50% 50%;
+  }
+  
+  @keyframes flowerGrow {
+    0% {
+      opacity: 0;
+  
+      transform:
+        translateY(8px)
+        scale(0.15);
+    }
+  
+    60% {
+      opacity: 1;
+  
+      transform:
+        translateY(-1px)
+        scale(1.07);
+    }
+  
+    82% {
+      transform:
+        translateY(0)
+        scale(0.98);
+    }
+  
+    100% {
+      opacity: 1;
+  
+      transform:
+        translateY(0)
+        scale(1);
+    }
+  }
+  
+  
+  /* ==========================================
+     11. BRISA
+     ========================================== */
+  
+  .flower-sway {
+    position: relative;
+  
+    width: 100%;
+    height: 100%;
+  
+    transform-origin:
+      50% 96%;
+  
+    will-change: transform;
+  
+    animation-name:
+      flowerSway;
+  
+    animation-duration:
+      var(--sway-duration);
+  
+    animation-timing-function:
+      ease-in-out;
+  
+    animation-delay:
+      var(--sway-delay);
+  
+    animation-iteration-count:
+      infinite;
+  
+    animation-direction:
+      alternate;
+  }
+  
+  .flower--ground .flower-sway {
+    transform-origin:
+      50% 55%;
+  
+    animation-name:
+      groundFlowerSway;
+  }
+  
+  @keyframes flowerSway {
+    0% {
+      transform:
+        rotate(-1.15deg)
+        translateX(-0.55px);
+    }
+  
+    38% {
+      transform:
+        rotate(-0.35deg)
+        translateX(-0.15px);
+    }
+  
+    70% {
+      transform:
+        rotate(0.65deg)
+        translateX(0.42px);
+    }
+  
+    100% {
+      transform:
+        rotate(1.15deg)
+        translateX(0.65px);
+    }
+  }
+  
+  @keyframes groundFlowerSway {
+    0% {
+      transform:
+        rotate(-0.45deg)
+        translateX(-0.18px);
+    }
+  
+    100% {
+      transform:
+        rotate(0.55deg)
+        translateX(0.22px);
+    }
+  }
+  
+  
+  /* ==========================================
+     12. SVG Y ANATOMÍA FLORAL
+     ========================================== */
+  
+  .flower-svg {
+    display: block;
+  
+    width: 100%;
+    height: 100%;
+  
+    overflow: visible;
+  }
+  
+  .flower-stem {
+    fill: none;
+  
+    stroke: #426d52;
+  
+    stroke-width: 2.4;
+  
+    stroke-linecap: round;
+  }
+  
+  .flower-stem-shadow {
+    fill: none;
+  
+    stroke: #294638;
+  
+    stroke-width: 1.15;
+  
+    stroke-linecap: round;
+  
+    opacity: 0.68;
+  }
+  
+  .flower-leaf {
+    fill: #3d684f;
+  }
+  
+  .flower-leaf-light {
+    fill: #49775b;
+  }
+  
+  .leaf-vein {
+    fill: none;
+  
+    stroke: #31533f;
+  
+    stroke-width: 0.8;
+  
+    stroke-linecap: round;
+  
+    opacity: 0.65;
+  }
+  
+  .flower-calyx-dark {
+    fill: #31513e;
+  }
+  
+  .flower-bloom {
+    transform-box: fill-box;
+  
+    transform-origin: center;
+  
+    transform:
+      rotate(
+        var(--bloom-rotation)
+      )
+      scaleY(
+        var(--bloom-squash)
+      );
+  }
+  
+  .petal-main {
+    fill:
+      var(--petal-main);
+  }
+  
+  .petal-light {
+    fill:
+      var(--petal-light);
+  }
+  
+  .petal-deep {
+    fill:
+      var(--petal-deep);
+  }
+  
+  .flower-center-shadow {
+    fill: #694b19;
+  
+    opacity: 0.30;
+  }
+  
+  .flower-center {
+    fill:
+      var(--flower-center);
+  }
+  
+  .flower-center-light {
+    fill:
+      var(--flower-center-light);
+  
+    opacity: 0.68;
+  }
+  
+  .ground-bloom-shadow {
+    fill:
+      rgba(
+        26,
+        53,
+        40,
+        0.38
+      );
+  }
+  
+  
+  /* ==========================================
+     13. FLORES ESPECIALES
+     ========================================== */
+  
+  .special-glint {
+    position: absolute;
+  
+    top: 30%;
+    left: 50%;
+  
+    z-index: 30;
+  
+    width: 12px;
+    height: 12px;
+  
+    border-radius: 50%;
+  
+    opacity: 0;
+  
+    transform:
+      translate(-50%, -50%)
+      scale(0.2);
+  
+    pointer-events: none;
+  
+    background:
+      radial-gradient(
+        circle,
+        rgba(255, 255, 235, 1) 0%,
+        rgba(255, 242, 168, 0.98) 18%,
+        rgba(255, 215, 83, 0.82) 38%,
+        rgba(242, 187, 43, 0.30) 60%,
+        transparent 78%
+      );
+  
+    box-shadow:
+      0 0 5px
+      rgba(255, 248, 204, 0.90),
+      0 0 11px
+      rgba(255, 220, 98, 0.70),
+      0 0 20px
+      rgba(237, 185, 43, 0.30);
+  }
+  
+  .special-glint::before,
+  .special-glint::after {
+    content: "";
+  
+    position: absolute;
+  
+    top: 50%;
+    left: 50%;
+  
+    border-radius: 999px;
+  
+    background:
+      rgba(
+        255,
+        250,
+        213,
+        0.94
+      );
+  
+    transform:
+      translate(-50%, -50%);
+  }
+  
+  .special-glint::before {
+    width: 21px;
+    height: 1px;
+  }
+  
+  .special-glint::after {
+    width: 1px;
+    height: 21px;
+  }
+  
+  
+  /* ==========================================
+     14. INTERACCIÓN DE ESPECIALES
+     ========================================== */
+  
+  .field[data-mode="exploration"]
+  .flower.is-special {
+    pointer-events: auto;
+  
+    cursor: pointer;
+  
+    touch-action: manipulation;
+  }
+  
+  .field[data-mode="exploration"]
+  .flower.is-special:not(.is-discovered)
+  .special-glint {
+    animation:
+      secretGlint
+      var(--glint-duration)
+      ease-in-out
+      var(--glint-delay)
+      infinite;
+  }
+  
+  .field[data-mode="exploration"]
+  .flower.is-special.is-discovered
+  .special-glint {
+    animation:
+      secretGlintDiscovered
+      var(--glint-discovered-duration)
+      ease-in-out
+      var(--glint-delay)
+      infinite;
+  }
+  
+  .field[data-mode="exploration"]
+  .flower.is-special:focus-visible {
+    outline:
+      1px solid
+      rgba(245, 210, 86, 0.50);
+  
+    outline-offset: 4px;
+  
+    border-radius: 50%;
+  }
+  
+  @keyframes secretGlint {
+    0%,
+    10% {
+      opacity: 0;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.2);
+    }
+  
+    14% {
+      opacity: 0.30;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.52);
+    }
+  
+    18% {
+      opacity: 1;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(1.28);
+    }
+  
+    22% {
+      opacity: 0.42;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.82);
+    }
+  
+    27% {
+      opacity: 0;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.3);
+    }
+  
+    28%,
+    58% {
+      opacity: 0;
+    }
+  
+    63% {
+      opacity: 0.18;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.45);
+    }
+  
+    67% {
+      opacity: 0.72;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(1);
+    }
+  
+    71% {
+      opacity: 0.24;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.68);
+    }
+  
+    76%,
+    100% {
+      opacity: 0;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.2);
+    }
+  }
+  
+  @keyframes secretGlintDiscovered {
+    0%,
+    70% {
+      opacity: 0;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.2);
+    }
+  
+    76% {
+      opacity: 0.08;
+    }
+  
+    80% {
+      opacity: 0.30;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.72);
+    }
+  
+    85% {
+      opacity: 0.07;
+  
+      transform:
+        translate(-50%, -50%)
+        scale(0.48);
+    }
+  
+    90%,
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  
+  /* ==========================================
+     15. NARRATIVA
+     ========================================== */
+  
+  .narrative {
+    position: absolute;
+  
+    top:
+      calc(
+        env(
+          safe-area-inset-top,
+          0px
+        )
+        + 7%
+      );
+  
+    left: 50%;
+  
+    z-index: 1000;
+  
+    width:
+      min(
+        88%,
+        400px
+      );
+  
+    padding:
+      18px 20px;
+  
+    transform:
+      translateX(-50%);
+  
+    text-align: center;
+  
+    pointer-events: none;
+  
+    background:
+      radial-gradient(
+        ellipse at center,
+        rgba(3, 12, 11, 0.84) 0%,
+        rgba(3, 12, 11, 0.58) 52%,
+        rgba(3, 12, 11, 0) 80%
+      );
+  }
+  
+  .narrative-text {
+    margin: 0;
+  
+    color: #f8f1df;
+  
+    font-size: 1.32rem;
+    line-height: 1.5;
+  
+    font-weight: 400;
+  
+    text-wrap: balance;
+  
+    text-shadow:
+      0 2px 8px
+      rgba(0, 0, 0, 0.78);
+  
+    opacity: 0;
+  
+    transform:
+      translateY(-10px);
+  
+    transition:
+      opacity 600ms ease,
+      transform 700ms ease;
+  }
+  
+  .narrative-text.is-visible {
+    opacity: 1;
+  
+    transform:
+      translateY(0);
+  }
+  
+  .interaction-hint {
+    margin:
+      16px 0 0;
+  
+    color:
+      rgba(
+        245,
+        221,
+        127,
+        0.56
+      );
+  
+    font-size: 0.78rem;
+    line-height: 1.3;
+  
+    letter-spacing: 0.04em;
+  
+    text-shadow:
+      0 2px 6px
+      rgba(0, 0, 0, 0.65);
+  
+    opacity: 0;
+  
+    transform:
+      translateY(5px);
+  
+    transition:
+      opacity 700ms ease,
+      transform 700ms ease;
+  }
+  
+  .interaction-hint.is-visible {
+    opacity: 1;
+  
+    transform:
+      translateY(0);
+  }
+  
+  
+  /* ==========================================
+     16. CONTROLES INFERIORES
+     ========================================== */
+  
+  .experience-controls {
+    position: fixed;
+  
+    right:
+      calc(
+        env(
+          safe-area-inset-right,
+          0px
+        )
+        + 16px
+      );
+  
+    bottom:
+      calc(
+        env(
+          safe-area-inset-bottom,
+          0px
+        )
+        + 14px
+      );
+  
+    z-index: 1500;
+  
+    display: flex;
+  
+    align-items: center;
+  
+    gap: 4px;
+  
+    opacity: 0.42;
+  
+    transition:
+      opacity 500ms ease;
+  }
+  
+  
+  /*
+    Durante exploración pueden verse
+    un poquito mejor.
+  */
+  .experience-controls.is-exploration {
+    opacity: 0.62;
+  }
+  
+  .experience-controls:hover,
+  .experience-controls:focus-within {
+    opacity: 0.92;
+  }
+  
+  .corner-control {
+    width: 38px;
+    height: 38px;
+  
+    display: grid;
+  
+    place-items: center;
+  
+    padding: 0;
+  
+    border: 0;
+  
+    border-radius: 50%;
+  
+    color:
+      rgba(
+        255,
+        255,
+        255,
+        0.92
+      );
+  
+    background:
+      transparent;
+  
+    cursor: pointer;
+  
+    -webkit-tap-highlight-color:
+      transparent;
+  
+    transition:
+      background 180ms ease,
+      transform 180ms ease,
+      color 180ms ease;
+  }
+  
+  .corner-control:hover {
+    background:
+      rgba(
+        255,
+        255,
+        255,
+        0.055
+      );
+  }
+  
+  .corner-control:active {
+    transform:
+      scale(0.88);
+  }
+  
+  .corner-control:focus-visible {
+    outline:
+      1px solid
+      rgba(
+        255,
+        255,
+        255,
+        0.42
+      );
+  
+    outline-offset: 1px;
+  }
+  
+  .replay-symbol {
+    display: block;
+  
+    font-size: 1.5rem;
+  
+    line-height: 1;
+  
+    font-weight: 300;
+  
+    transform:
+      translateY(-1px);
+  }
+  
+  .sound-icon {
+    width: 20px;
+    height: 20px;
+  
+    fill: none;
+  
+    stroke: currentColor;
+  
+    stroke-width: 1.55;
+  
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  
+  
+  /* ==========================================
+     17. OVERLAY DE MENSAJES
+     ========================================== */
+  
+  .message-overlay {
+    position: fixed;
+  
+    inset: 0;
+  
+    z-index: 2000;
+  
+    display: flex;
+  
+    align-items: center;
+    justify-content: center;
+  
+    padding: 24px;
+  
+    opacity: 0;
+  
+    background:
+      rgba(
+        1,
+        8,
+        7,
+        0.30
+      );
+  
+    backdrop-filter:
+      blur(4px)
+      brightness(0.74);
+  
+    -webkit-backdrop-filter:
+      blur(4px)
+      brightness(0.74);
+  
+    transition:
+      opacity 260ms ease;
+  }
+  
+  .message-overlay.is-visible {
+    opacity: 1;
+  }
+  
+  
+  /* ==========================================
+     18. TARJETA
+     ========================================== */
+  
+  .message-card {
+    position: relative;
+  
+    width:
+      min(
+        86vw,
+        340px
+      );
+  
+    min-height: 165px;
+  
+    padding:
+      40px 30px
+      26px;
+  
+    border:
+      1px solid
+      rgba(
+        239,
+        204,
+        89,
+        0.22
+      );
+  
+    border-radius: 22px;
+  
+    text-align: center;
+  
+    background:
+      linear-gradient(
+        145deg,
+        rgba(8, 25, 21, 0.95),
+        rgba(5, 17, 15, 0.94)
+      );
+  
+    box-shadow:
+      0 22px 60px
+      rgba(0, 0, 0, 0.46),
+      inset
+      0 1px 0
+      rgba(255, 241, 190, 0.035);
+  
+    transform:
+      translateY(12px)
+      scale(0.96);
+  
+    opacity: 0;
+  
+    transition:
+      transform 320ms
+      cubic-bezier(
+        0.2,
+        0.75,
+        0.25,
+        1
+      ),
+      opacity 260ms ease;
+  }
+  
+  .message-overlay.is-visible
+  .message-card {
+    opacity: 1;
+  
+    transform:
+      translateY(0)
+      scale(1);
+  }
+  
+  .message-card-text {
+    margin: 0;
+  
+    color: #f6f0df;
+  
+    font-size: 1.08rem;
+    line-height: 1.58;
+  
+    font-weight: 400;
+  
+    text-wrap: balance;
+  
+    text-shadow:
+      0 2px 8px
+      rgba(0, 0, 0, 0.36);
+  }
+  
+  .message-heart {
+    margin-top: 18px;
+  
+    font-size: 1rem;
+  
+    opacity: 0.84;
+  }
+  
+  
+  /* ==========================================
+     19. CERRAR TARJETA
+     ========================================== */
+  
+  .message-close {
+    position: absolute;
+  
+    top: 9px;
+    right: 11px;
+  
+    width: 34px;
+    height: 34px;
+  
+    display: grid;
+  
+    place-items: center;
+  
+    padding: 0;
+  
+    border: 0;
+  
+    border-radius: 50%;
+  
+    color:
+      rgba(
+        246,
+        240,
+        223,
+        0.68
+      );
+  
+    background:
+      transparent;
+  
+    font-size: 1.5rem;
+    line-height: 1;
+  
+    cursor: pointer;
+  
+    transition:
+      color 180ms ease,
+      background 180ms ease,
+      transform 180ms ease;
+  }
+  
+  .message-close:hover {
+    color:
+      rgba(
+        255,
+        236,
+        166,
+        0.94
+      );
+  
+    background:
+      rgba(
+        255,
+        232,
+        144,
+        0.055
+      );
+  }
+  
+  .message-close:active {
+    transform:
+      scale(0.9);
+  }
+  
+  
+  /* ==========================================
+     20. MÓVIL
+     ========================================== */
+  
+  @media (max-width: 480px) {
+    .narrative {
+      top:
+        calc(
+          env(
+            safe-area-inset-top,
+            0px
+          )
+          + 6%
+        );
+  
+      width: 90%;
+  
+      padding:
+        16px 18px;
+    }
+  
+    .narrative-text {
+      font-size: 1.16rem;
+  
+      line-height: 1.48;
+    }
+  
+    .interaction-hint {
+      font-size: 0.73rem;
+    }
+  
+    .flower {
+      width: 59px;
+      height: 80px;
+    }
+  
+    .flower--ground {
+      width: 38px;
+      height: 38px;
+    }
+  
+    .vegetation-cluster {
+      width: 50px;
+      height: 50px;
+    }
+  
+    .message-card {
+      width:
+        min(
+          88vw,
+          330px
+        );
+  
+      padding:
+        38px 25px
+        24px;
+    }
+  
+    .message-card-text {
+      font-size: 1rem;
+    }
+  
+    .experience-controls {
+      right:
+        calc(
+          env(
+            safe-area-inset-right,
+            0px
+          )
+          + 11px
+        );
+  
+      bottom:
+        calc(
+          env(
+            safe-area-inset-bottom,
+            0px
+          )
+          + 9px
+        );
+    }
+  }
+  
+  
+  /* ==========================================
+     21. REDUCCIÓN DE MOVIMIENTO
+     ========================================== */
+  
+  @media (
+    prefers-reduced-motion: reduce
+  ) {
+    .narrative-text,
+    .interaction-hint,
+    .vegetation-cluster,
+    .field-background::after,
+    .message-overlay,
+    .message-card {
+      transition-duration: 120ms;
+    }
+  
+    .flower-grow,
+    .ground-reveal,
+    .birth-glow {
+      animation-duration: 400ms;
+    }
+  
+    /*
+      No eliminamos la brisa.
+      Solo la hacemos más lenta.
+    */
+    .flower-sway {
+      animation-duration:
+        12s !important;
+    }
+  }
