@@ -120,9 +120,9 @@ const SPECIAL_MESSAGES = [
 
   'Juntos somos ese 100%.',
 
-  'Yo a ti te quiero con todo y tus mil enojos.',
+  'Yo a ti te amo con todo y tus mil enojos.',
 
-  'No siempre sé decir las cosas bonito, pero sí sé que te quiero muchísimo.',
+  'No siempre sé decir las cosas bonito, pero sí sé que te amo muchísimo.',
 
   'A veces no sé cómo ayudarte, pero nunca quiero que sientas que tienes que cargar todo tú sola.',
 
