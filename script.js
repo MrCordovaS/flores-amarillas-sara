@@ -1,5 +1,5 @@
 // ==========================================
-// 1. REFERENCIAS DEL DOCUMENTO
+// 1. REFERENCIAS
 // ==========================================
 
 const startButton =
@@ -24,10 +24,6 @@ const interactionHint =
   document.querySelector('#interactionHint');
 
 
-// ==========================================
-// 2. CONTROLES
-// ==========================================
-
 const experienceControls =
   document.querySelector('#experienceControls');
 
@@ -47,10 +43,6 @@ const backgroundMusic =
   document.querySelector('#backgroundMusic');
 
 
-// ==========================================
-// 3. TARJETA DE MENSAJES
-// ==========================================
-
 const messageOverlay =
   document.querySelector('#messageOverlay');
 
@@ -62,7 +54,7 @@ const secretMessage =
 
 
 // ==========================================
-// 4. INTERACCIÓN
+// 2. CONFIGURACIÓN
 // ==========================================
 
 const TOTAL_USER_FLOWERS = 10;
@@ -72,35 +64,44 @@ const SLOW_GROWTH_START_AT = 5;
 const FAST_GROWTH_START_AT = 7;
 
 
-// ==========================================
-// 5. CANTIDADES
-// ==========================================
-
 const FINAL_FLOWER_TARGET = 25;
 
 const GROUND_FLOWER_TARGET = 15;
 
 
-// ==========================================
-// 6. FLORES ESPECIALES
-// ==========================================
+const SPECIAL_FLOWER_TARGET = 13;
 
-const SPECIAL_FLOWER_TARGET = 8;
+const REGULAR_SPECIAL_FLOWER_TARGET = 12;
 
+/*
+  12 flores normales con frases
+  + 1 flor secreta final.
+
+  La flor número 25 existe desde el principio,
+  pero solo se activa después de descubrir
+  las otras 12 flores especiales.
+*/
 const SPECIAL_FLOWER_SLOTS = [
   2,
+  4,
   5,
+  7,
   8,
   11,
+  13,
   14,
   17,
+  19,
   21,
-  24
+  24,
+  25
 ];
+
+const FINAL_SECRET_FLOWER_SLOT = 25;
 
 
 // ==========================================
-// 7. MENSAJES SECRETOS
+// 3. MENSAJES SECRETOS
 // ==========================================
 
 const SPECIAL_MESSAGES = [
@@ -115,17 +116,35 @@ const SPECIAL_MESSAGES = [
 
   'Eres lo mejor que me pasó en la vida.',
 
-  'A veces la riego, a veces no sé qué decirte, solo quiero cuidarte.',
+  'A veces la riego y no sé qué decirte, pero solo quiero cuidarte.',
 
   'Juntos somos ese 100%.',
 
-  'Yo a ti te quiero con todo y tus mil enojos.'
+  'Yo a ti te quiero con todo y tus mil enojos.',
+
+  'No siempre sé decir las cosas bonito, pero sí sé que te quiero muchísimo.',
+
+  'A veces no sé cómo ayudarte, pero nunca quiero que sientas que tienes que cargar todo tú sola.',
+
+  'Tu abrazo sigue siendo uno de mis lugares favoritos.',
+
+  'Me siguen gustando tus ojitos. Muchísimo.'
 
 ];
 
 
+/*
+  Esta frase NO entra al sorteo.
+
+  Siempre pertenece a la última
+  flor especial del campo.
+*/
+const FINAL_SECRET_MESSAGE =
+  'Si encontraste esta, significa que de verdad te pusiste a revisar todas mis florecitas. Te amo, curiosa. 💛';
+
+
 // ==========================================
-// 8. VELOCIDADES
+// 4. TIEMPOS
 // ==========================================
 
 const SLOW_GROWTH_INTERVAL = 3800;
@@ -133,6 +152,7 @@ const SLOW_GROWTH_INTERVAL = 3800;
 const FIRST_SLOW_FLOWER_DELAY = 1800;
 
 const MAX_SLOW_AUTOMATIC_FLOWERS = 4;
+
 
 const SLOW_GROUND_FLOWER_INTERVAL = 4400;
 
@@ -142,10 +162,9 @@ const FIRST_GROUND_FLOWER_DELAY = 2100;
 /*
   Fase rápida desde:
 
-  “Podría seguir haciendo que
-  aparezcan flores…”
+  “Podría seguir haciendo que aparezcan
+  flores…”
 */
-
 const FAST_GROWTH_INTERVAL = 420;
 
 const FAST_GROUND_FLOWER_INTERVAL = 520;
@@ -155,28 +174,31 @@ const FAST_BIG_START_DELAY = 120;
 const FAST_GROUND_START_DELAY = 220;
 
 
-/*
-  Seguridad final.
-*/
-
 const FINAL_BIG_FLOWER_INTERVAL = 280;
 
 const FINAL_GROUND_FLOWER_INTERVAL = 340;
 
 
 // ==========================================
-// 9. DISTRIBUCIÓN
+// 5. DISTRIBUCIÓN
 // ==========================================
 
-const PREFERRED_FLOWER_DISTANCE = 46;
+const PREFERRED_FLOWER_DISTANCE = 44;
 
-const VEGETATION_CLUSTER_COUNT = 18;
 
-const VEGETATION_REVEAL_RADIUS = 175;
+/*
+  Más vegetación que antes.
+
+  Sigue siendo ligera porque cada elemento
+  es SVG muy pequeño.
+*/
+const VEGETATION_CLUSTER_COUNT = 30;
+
+const VEGETATION_REVEAL_RADIUS = 155;
 
 
 // ==========================================
-// 10. MÚSICA
+// 6. MÚSICA
 // ==========================================
 
 const MUSIC_VOLUME = 0.30;
@@ -186,7 +208,7 @@ backgroundMusic.volume =
 
 
 // ==========================================
-// 11. NARRATIVA
+// 7. NARRATIVA
 // ==========================================
 
 const INITIAL_MESSAGE =
@@ -219,43 +241,67 @@ const NARRATIVE_AFTER_TAP = [
 
 
 // ==========================================
-// 12. PALETAS
+// 8. PALETAS
 // ==========================================
 
 const FLOWER_PALETTES = [
 
   {
-    petalMain: '#f0c94a',
-    petalLight: '#f7dc72',
-    petalDeep: '#d8ad34',
+    petalMain: '#efc94b',
+    petalLight: '#f7de78',
+    petalDeep: '#d7aa30',
 
-    center: '#967020',
-    centerLight: '#c89a36'
+    center: '#93671c',
+    centerLight: '#c99732'
   },
 
   {
-    petalMain: '#edc544',
-    petalLight: '#f5d86a',
-    petalDeep: '#d3a82f',
+    petalMain: '#f2cc4d',
+    petalLight: '#f8e184',
+    petalDeep: '#ddb23a',
 
-    center: '#8f671d',
-    centerLight: '#bd8b2e'
+    center: '#9c7020',
+    centerLight: '#cfa13a'
   },
 
   {
-    petalMain: '#f3d052',
-    petalLight: '#f9e17c',
-    petalDeep: '#deb638',
+    petalMain: '#eac044',
+    petalLight: '#f4d66d',
+    petalDeep: '#ce9f2b',
 
-    center: '#9e7522',
-    centerLight: '#cca03a'
+    center: '#875e1b',
+    centerLight: '#ba892f'
   }
 
 ];
 
 
 // ==========================================
-// 13. ESTADO GENERAL
+// 9. VARIANTES
+// ==========================================
+
+/*
+  Tres flores de la misma familia.
+
+  No intentamos crear especies diferentes.
+
+  0 = abierta de 8 pétalos
+  1 = 6 pétalos redondos
+  2 = 7 pétalos silvestres
+*/
+
+function createFlowerVariantDeck() {
+
+  return shuffleArray([
+    ...Array(10).fill(0),
+    ...Array(8).fill(1),
+    ...Array(7).fill(2)
+  ]);
+}
+
+
+// ==========================================
+// 10. ESTADO
 // ==========================================
 
 let userFlowerCount = 0;
@@ -267,15 +313,12 @@ let narrativeEnabled = false;
 let explorationEnabled = false;
 
 
-// ==========================================
-// 14. CRECIMIENTO
-// ==========================================
-
 let slowGrowthStarted = false;
 
 let fastGrowthStarted = false;
 
 let finalGrowthAccelerated = false;
+
 
 let slowAutomaticFlowerCount = 0;
 
@@ -286,13 +329,23 @@ let groundAnchorIndex = 0;
 let visualFlowerCount = 0;
 
 
-// ==========================================
-// 15. FLORES ESPECIALES
-// ==========================================
-
 let largeFlowerSerial = 0;
 
 let specialFlowerCount = 0;
+
+/*
+  Cuenta únicamente las 12 flores especiales
+  normales descubiertas por primera vez.
+*/
+let discoveredRegularSpecialCount = 0;
+
+/*
+  Referencia a la flor número 25.
+
+  Al principio se comporta como una flor normal.
+*/
+let finalSecretFlower = null;
+
 
 let specialMessageDeck =
   shuffleArray(
@@ -300,8 +353,12 @@ let specialMessageDeck =
   );
 
 
+let flowerVariantDeck =
+  createFlowerVariantDeck();
+
+
 // ==========================================
-// 16. POSICIONES
+// 11. POSICIONES
 // ==========================================
 
 const originalSaraFlowers = [];
@@ -312,7 +369,7 @@ const vegetationClusters = [];
 
 
 // ==========================================
-// 17. TEMPORIZADORES
+// 12. TEMPORIZADORES
 // ==========================================
 
 let narrativeTimer = null;
@@ -343,7 +400,7 @@ let finalWindCleanupTimer = null;
 
 
 // ==========================================
-// 18. CAPAS
+// 13. CAPAS
 // ==========================================
 
 let fieldReady = false;
@@ -360,7 +417,7 @@ let flowersFrontLayer = null;
 
 
 // ==========================================
-// 19. MÚSICA
+// 14. MÚSICA
 // ==========================================
 
 function playBackgroundMusic(
@@ -377,7 +434,7 @@ function playBackgroundMusic(
 
     catch (error) {
 
-      // Algunos navegadores esperan metadata.
+      // No hacemos nada.
 
     }
   }
@@ -394,23 +451,12 @@ function playBackgroundMusic(
   ) {
 
     playPromise.catch(
-      () => {
-
-        /*
-          Si el navegador bloquea el audio,
-          la experiencia continúa.
-        */
-
-      }
+      () => {}
     );
 
   }
 }
 
-
-// ==========================================
-// 20. ICONO DE SONIDO
-// ==========================================
 
 function updateSoundButton() {
 
@@ -438,10 +484,6 @@ function updateSoundButton() {
 }
 
 
-// ==========================================
-// 21. ACTIVAR / SILENCIAR
-// ==========================================
-
 function toggleSound(
   event
 ) {
@@ -468,23 +510,29 @@ function toggleSound(
 
 
 // ==========================================
-// 22. INICIAR EXPERIENCIA
+// 15. INICIO
 // ==========================================
 
 function startExperience() {
 
-  startScreen.hidden = true;
+  startScreen.hidden =
+    true;
 
-  scene.hidden = false;
+  scene.hidden =
+    false;
 
-  experienceControls.hidden = false;
+  experienceControls.hidden =
+    false;
 
 
-  plantingEnabled = true;
+  plantingEnabled =
+    true;
 
-  narrativeEnabled = true;
+  narrativeEnabled =
+    true;
 
-  explorationEnabled = false;
+  explorationEnabled =
+    false;
 
 
   experienceControls.classList.remove(
@@ -523,7 +571,7 @@ function startExperience() {
 
 
 // ==========================================
-// 23. REINICIAR EXPERIENCIA
+// 16. REINICIO
 // ==========================================
 
 function restartExperience(
@@ -546,7 +594,8 @@ function restartExperience(
 
   try {
 
-    backgroundMusic.currentTime = 0;
+    backgroundMusic.currentTime =
+      0;
 
   }
 
@@ -557,33 +606,53 @@ function restartExperience(
   }
 
 
-  userFlowerCount = 0;
+  userFlowerCount =
+    0;
 
-  plantingEnabled = false;
+  plantingEnabled =
+    false;
 
-  narrativeEnabled = false;
+  narrativeEnabled =
+    false;
 
-  explorationEnabled = false;
-
-
-  slowGrowthStarted = false;
-
-  fastGrowthStarted = false;
-
-  finalGrowthAccelerated = false;
-
-  slowAutomaticFlowerCount = 0;
-
-  groundFlowerCount = 0;
-
-  groundAnchorIndex = 0;
-
-  visualFlowerCount = 0;
+  explorationEnabled =
+    false;
 
 
-  largeFlowerSerial = 0;
+  slowGrowthStarted =
+    false;
 
-  specialFlowerCount = 0;
+  fastGrowthStarted =
+    false;
+
+  finalGrowthAccelerated =
+    false;
+
+
+  slowAutomaticFlowerCount =
+    0;
+
+  groundFlowerCount =
+    0;
+
+  groundAnchorIndex =
+    0;
+
+  visualFlowerCount =
+    0;
+
+
+  largeFlowerSerial =
+    0;
+
+  specialFlowerCount =
+    0;
+
+  discoveredRegularSpecialCount =
+    0;
+
+  finalSecretFlower =
+    null;
 
 
   specialMessageDeck =
@@ -592,14 +661,22 @@ function restartExperience(
     );
 
 
-  originalSaraFlowers.length = 0;
-
-  allFlowerPositions.length = 0;
-
-  vegetationClusters.length = 0;
+  flowerVariantDeck =
+    createFlowerVariantDeck();
 
 
-  field.innerHTML = '';
+  originalSaraFlowers.length =
+    0;
+
+  allFlowerPositions.length =
+    0;
+
+  vegetationClusters.length =
+    0;
+
+
+  field.innerHTML =
+    '';
 
 
   field.removeAttribute(
@@ -614,21 +691,28 @@ function restartExperience(
 
   field.style.setProperty(
     '--field-reveal-opacity',
-    '0.025'
+    '0.018'
   );
 
 
-  fieldReady = false;
+  fieldReady =
+    false;
 
-  vegetationLayer = null;
 
-  revealLayer = null;
+  vegetationLayer =
+    null;
 
-  flowersBackLayer = null;
+  revealLayer =
+    null;
 
-  flowersMidLayer = null;
+  flowersBackLayer =
+    null;
 
-  flowersFrontLayer = null;
+  flowersMidLayer =
+    null;
+
+  flowersFrontLayer =
+    null;
 
 
   narrativeText.classList.remove(
@@ -636,7 +720,8 @@ function restartExperience(
   );
 
 
-  narrativeText.textContent = '';
+  narrativeText.textContent =
+    '';
 
 
   interactionHint.classList.remove(
@@ -654,7 +739,7 @@ function restartExperience(
 
 
 // ==========================================
-// 24. LIMPIAR TEMPORIZADORES
+// 17. LIMPIEZA DE TIMERS
 // ==========================================
 
 function clearExperienceTimers() {
@@ -713,36 +798,49 @@ function clearExperienceTimers() {
   );
 
 
-  narrativeTimer = null;
+  narrativeTimer =
+    null;
 
-  hintTimer = null;
+  hintTimer =
+    null;
 
-  slowGrowthTimer = null;
+  slowGrowthTimer =
+    null;
 
-  slowGrowthStartTimer = null;
+  slowGrowthStartTimer =
+    null;
 
-  fastGrowthTimer = null;
+  fastGrowthTimer =
+    null;
 
-  fastGrowthStartTimer = null;
+  fastGrowthStartTimer =
+    null;
 
-  groundFlowerStartTimer = null;
+  groundFlowerStartTimer =
+    null;
 
-  slowGroundFlowerTimer = null;
+  slowGroundFlowerTimer =
+    null;
 
-  fastGroundFlowerTimer = null;
+  fastGroundFlowerTimer =
+    null;
 
-  fastGroundStartTimer = null;
+  fastGroundStartTimer =
+    null;
 
-  messageHideTimer = null;
+  messageHideTimer =
+    null;
 
-  finalWindTimer = null;
+  finalWindTimer =
+    null;
 
-  finalWindCleanupTimer = null;
+  finalWindCleanupTimer =
+    null;
 }
 
 
 // ==========================================
-// 25. CONSTRUIR CAMPO
+// 18. CREAR CAPAS
 // ==========================================
 
 function initializeFieldVisuals() {
@@ -825,17 +923,19 @@ function initializeFieldVisuals() {
   generateVegetation();
 
 
-  fieldReady = true;
+  fieldReady =
+    true;
 }
 
 
 // ==========================================
-// 26. VEGETACIÓN
+// 19. VEGETACIÓN
 // ==========================================
 
 function generateVegetation() {
 
-  vegetationClusters.length = 0;
+  vegetationClusters.length =
+    0;
 
 
   for (
@@ -857,11 +957,16 @@ function generateVegetation() {
 
     const xPercent =
       randomBetween(
-        4,
-        96
+        3,
+        97
       );
 
 
+    /*
+      Ligero sesgo hacia abajo,
+      pero sigue habiendo vegetación
+      por todo el campo.
+    */
     const verticalRandom =
       Math.pow(
         Math.random(),
@@ -870,28 +975,29 @@ function generateVegetation() {
 
 
     const yPercent =
-      15 +
-      verticalRandom * 82;
+      10 +
+      verticalRandom *
+      87;
 
 
     const scale =
       randomBetween(
-        0.72,
-        1.25
+        0.66,
+        1.28
       );
 
 
     const rotation =
       randomBetween(
-        -18,
-        18
+        -24,
+        24
       );
 
 
     const baseOpacity =
       randomBetween(
-        0.07,
-        0.13
+        0.045,
+        0.105
       );
 
 
@@ -899,7 +1005,7 @@ function generateVegetation() {
       Math.floor(
         randomBetween(
           0,
-          3
+          4
         )
       );
 
@@ -924,8 +1030,14 @@ function generateVegetation() {
     );
 
 
+    cluster.style.setProperty(
+      '--veg-opacity',
+      baseOpacity.toFixed(3)
+    );
+
+
     cluster.style.opacity =
-      baseOpacity.toFixed(2);
+      baseOpacity.toFixed(3);
 
 
     cluster.innerHTML =
@@ -960,7 +1072,7 @@ function generateVegetation() {
 
 
 // ==========================================
-// 27. SVG DE VEGETACIÓN
+// 20. SVG VEGETACIÓN
 // ==========================================
 
 function getVegetationSvg(
@@ -978,48 +1090,23 @@ function getVegetationSvg(
       >
 
         <path
-          class="veg-stem"
-          d="
-            M30 56
-            C28 43,
-             30 30,
-             35 13
-          "
+          class="veg-grass"
+          d="M29 57 C25 43 24 29 28 16"
         />
 
         <path
-          class="veg-stem veg-stem-soft"
-          d="
-            M27 56
-            C23 44,
-             20 34,
-             17 22
-          "
+          class="veg-grass"
+          d="M31 57 C34 43 39 29 44 18"
         />
 
-        <ellipse
-          class="veg-leaf"
-          cx="36"
-          cy="24"
-          rx="4"
-          ry="10"
-          transform="rotate(32 36 24)"
+        <path
+          class="veg-grass"
+          d="M26 57 C22 47 17 37 13 31"
         />
 
-        <ellipse
-          class="veg-leaf veg-leaf-soft"
-          cx="20"
-          cy="34"
-          rx="3.5"
-          ry="8"
-          transform="rotate(-38 20 34)"
-        />
-
-        <circle
-          class="veg-seed"
-          cx="36"
-          cy="12"
-          r="2.4"
+        <path
+          class="veg-grass"
+          d="M34 57 C39 48 44 42 49 38"
         />
 
       </svg>
@@ -1041,49 +1128,99 @@ function getVegetationSvg(
         <path
           class="veg-stem"
           d="
-            M30 56
-            C31 43,
-             27 31,
-             24 18
+            M30 57
+            C29 45,
+             31 34,
+             34 21
           "
         />
 
         <path
-          class="veg-stem veg-stem-soft"
+          class="veg-stem-soft"
           d="
-            M33 56
-            C35 42,
-             40 34,
-             44 23
-          "
-        />
-
-        <path
-          class="veg-stem veg-stem-soft"
-          d="
-            M27 56
-            C23 46,
-             20 40,
-             15 34
+            M27 57
+            C24 48,
+             22 40,
+             19 32
           "
         />
 
         <ellipse
           class="veg-leaf"
-          cx="24"
-          cy="30"
-          rx="3.8"
-          ry="9"
-          transform="rotate(-28 24 30)"
+          cx="35"
+          cy="34"
+          rx="3"
+          ry="7"
+          transform="rotate(34 35 34)"
         />
 
         <ellipse
-          class="veg-leaf veg-leaf-soft"
-          cx="40"
-          cy="35"
-          rx="3.5"
+          class="veg-leaf-soft"
+          cx="22"
+          cy="42"
+          rx="2.7"
+          ry="6"
+          transform="rotate(-38 22 42)"
+        />
+
+        <circle
+          class="veg-seed"
+          cx="35"
+          cy="20"
+          r="1.8"
+        />
+
+      </svg>
+
+    `;
+  }
+
+
+  if (variant === 3) {
+
+    return `
+
+      <svg
+        class="vegetation-svg"
+        viewBox="0 0 60 60"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+
+        <path
+          class="veg-stem-soft"
+          d="
+            M30 56
+            C29 47,
+             26 41,
+             22 35
+          "
+        />
+
+        <ellipse
+          class="veg-leaf"
+          cx="22"
+          cy="37"
+          rx="4"
           ry="8"
-          transform="rotate(36 40 35)"
+          transform="rotate(-55 22 37)"
+        />
+
+        <ellipse
+          class="veg-leaf-soft"
+          cx="29"
+          cy="45"
+          rx="3.5"
+          ry="7"
+          transform="rotate(-20 29 45)"
+        />
+
+        <ellipse
+          class="veg-leaf"
+          cx="36"
+          cy="48"
+          rx="3"
+          ry="6"
+          transform="rotate(35 36 48)"
         />
 
       </svg>
@@ -1103,49 +1240,49 @@ function getVegetationSvg(
       <path
         class="veg-stem"
         d="
-          M30 56
-          C29 43,
-           27 31,
-           30 16
+          M30 57
+          C29 45,
+           27 35,
+           29 24
         "
       />
 
       <path
-        class="veg-stem veg-stem-soft"
+        class="veg-stem-soft"
         d="
-          M27 56
-          C24 45,
-           21 38,
-           18 29
+          M27 57
+          C24 47,
+           21 40,
+           18 35
         "
       />
 
       <path
-        class="veg-stem veg-stem-soft"
+        class="veg-stem-soft"
         d="
-          M33 56
-          C37 45,
-           39 37,
-           41 29
+          M33 57
+          C37 47,
+           40 41,
+           43 35
         "
       />
 
       <ellipse
         class="veg-leaf"
         cx="23"
-        cy="39"
-        rx="3.6"
-        ry="8.5"
-        transform="rotate(-40 23 39)"
+        cy="45"
+        rx="3"
+        ry="7"
+        transform="rotate(-42 23 45)"
       />
 
       <ellipse
-        class="veg-leaf veg-leaf-soft"
-        cx="37"
-        cy="34"
-        rx="3.4"
-        ry="8"
-        transform="rotate(38 37 34)"
+        class="veg-leaf-soft"
+        cx="38"
+        cy="43"
+        rx="3"
+        ry="6.5"
+        transform="rotate(42 38 43)"
       />
 
     </svg>
@@ -1155,7 +1292,7 @@ function getVegetationSvg(
 
 
 // ==========================================
-// 28. NARRATIVA
+// 21. NARRATIVA
 // ==========================================
 
 function showNarrative(
@@ -1220,7 +1357,7 @@ function hideInteractionHint() {
 
 
 // ==========================================
-// 29. TOQUE DEL CAMPO
+// 22. TOQUE
 // ==========================================
 
 function handleFieldPointer(
@@ -1271,7 +1408,7 @@ function handleFieldPointer(
 
 
 // ==========================================
-// 30. FLOR PLANTADA POR SARA
+// 23. PLANTAR FLOR
 // ==========================================
 
 function plantUserFlower(
@@ -1296,7 +1433,8 @@ function plantUserFlower(
 
 
   const isFirstFlower =
-    userFlowerCount === 0;
+    userFlowerCount ===
+    0;
 
 
   createFlower(
@@ -1332,11 +1470,13 @@ function plantUserFlower(
   }
 
 
-  userFlowerCount += 1;
+  userFlowerCount +=
+    1;
 
 
   if (
-    userFlowerCount === 1
+    userFlowerCount ===
+    1
   ) {
 
     hideInteractionHint();
@@ -1353,10 +1493,6 @@ function plantUserFlower(
   );
 
 
-  // ========================================
-  // FLOR 5
-  // ========================================
-
   if (
     userFlowerCount ===
     SLOW_GROWTH_START_AT
@@ -1369,10 +1505,6 @@ function plantUserFlower(
   }
 
 
-  // ========================================
-  // FLOR 7
-  // ========================================
-
   if (
     userFlowerCount ===
     FAST_GROWTH_START_AT
@@ -1382,10 +1514,6 @@ function plantUserFlower(
 
   }
 
-
-  // ========================================
-  // FLOR 10
-  // ========================================
 
   if (
     userFlowerCount ===
@@ -1410,7 +1538,7 @@ function plantUserFlower(
 
 
 // ==========================================
-// 31. ACELERACIÓN FINAL
+// 24. ACELERACIÓN FINAL
 // ==========================================
 
 function accelerateFinalGrowth() {
@@ -1466,7 +1594,7 @@ function accelerateFinalGrowth() {
 
 
 // ==========================================
-// 32. ONDA FINAL
+// 25. RÁFAGA FINAL
 // ==========================================
 
 function triggerFinalWindWave() {
@@ -1499,7 +1627,7 @@ function triggerFinalWindWave() {
 
 
 // ==========================================
-// 33. EXPLORACIÓN
+// 26. EXPLORACIÓN
 // ==========================================
 
 function enterExplorationMode() {
@@ -1540,7 +1668,8 @@ function enterExplorationMode() {
   specialFlowers.forEach(
     flower => {
 
-      flower.tabIndex = 0;
+      flower.tabIndex =
+        0;
 
     }
   );
@@ -1548,7 +1677,7 @@ function enterExplorationMode() {
 
 
 // ==========================================
-// 34. MENSAJES SECRETOS
+// 27. MENSAJES SECRETOS
 // ==========================================
 
 function openSecretMessage(
@@ -1571,6 +1700,24 @@ function openSecretMessage(
   }
 
 
+  /*
+    Revisamos si esta flor ya había sido leída.
+
+    Así, volver a abrir una misma frase no hace
+    avanzar el contador.
+  */
+  const wasAlreadyDiscovered =
+
+    flower.dataset.discovered ===
+    'true';
+
+
+  const isFinalSecret =
+
+    flower.dataset.finalSecret ===
+    'true';
+
+
   flower.classList.add(
     'is-discovered'
   );
@@ -1578,6 +1725,37 @@ function openSecretMessage(
 
   flower.dataset.discovered =
     'true';
+
+
+  /*
+    Solo cuentan las primeras 12 flores.
+
+    La flor secreta final no participa
+    en este contador.
+  */
+  if (
+    !wasAlreadyDiscovered &&
+    !isFinalSecret
+  ) {
+
+    discoveredRegularSpecialCount +=
+      1;
+
+
+    /*
+      Al descubrir la número 12,
+      despertamos la flor final.
+    */
+    if (
+      discoveredRegularSpecialCount >=
+      REGULAR_SPECIAL_FLOWER_TARGET
+    ) {
+
+      unlockFinalSecretFlower();
+
+    }
+
+  }
 
 
   secretMessage.textContent =
@@ -1607,6 +1785,110 @@ function openSecretMessage(
       );
 
     }
+  );
+}
+
+
+/*
+  Convierte la flor número 25 en una flor especial
+  únicamente después de descubrir las otras 12.
+*/
+function unlockFinalSecretFlower() {
+
+  if (
+    !finalSecretFlower
+  ) {
+    return;
+  }
+
+
+  /*
+    Evitamos configurar dos veces la misma flor.
+  */
+  if (
+    finalSecretFlower.classList.contains(
+      'is-special'
+    )
+  ) {
+    return;
+  }
+
+
+  finalSecretFlower.classList.add(
+    'is-special'
+  );
+
+
+  finalSecretFlower.dataset.secretMessage =
+    FINAL_SECRET_MESSAGE;
+
+
+  finalSecretFlower.dataset.discovered =
+    'false';
+
+
+  finalSecretFlower.tabIndex =
+
+    explorationEnabled
+
+      ? 0
+
+      : -1;
+
+
+  finalSecretFlower.setAttribute(
+    'role',
+    'button'
+  );
+
+
+  finalSecretFlower.setAttribute(
+    'aria-label',
+    'Flor especial'
+  );
+
+
+  /*
+    Reutilizamos exactamente el mismo sistema
+    de brillo que las demás flores especiales.
+  */
+  const glintDuration =
+    randomBetween(
+      5.6,
+      7.8
+    );
+
+
+  finalSecretFlower.style.setProperty(
+    '--glint-duration',
+    `${glintDuration.toFixed(2)}s`
+  );
+
+
+  finalSecretFlower.style.setProperty(
+    '--glint-delay',
+    `${(-glintDuration * 0.10).toFixed(2)}s`
+  );
+
+
+  finalSecretFlower.style.setProperty(
+    '--glint-discovered-duration',
+    `${randomBetween(
+      11,
+      15
+    ).toFixed(2)}s`
+  );
+
+
+  finalSecretFlower.addEventListener(
+    'click',
+    handleSpecialFlowerClick
+  );
+
+
+  finalSecretFlower.addEventListener(
+    'keydown',
+    handleSpecialFlowerKeydown
   );
 }
 
@@ -1712,7 +1994,7 @@ function handleSpecialFlowerKeydown(
 
 
 // ==========================================
-// 35. POSICIONES
+// 28. REGISTRO POSICIONES
 // ==========================================
 
 function registerFlowerPosition(
@@ -1744,7 +2026,7 @@ function getNormalFlowerCount() {
 
 
 // ==========================================
-// 36. CRECIMIENTO LENTO GRANDES
+// 29. CRECIMIENTO LENTO
 // ==========================================
 
 function startSlowGrowth() {
@@ -1815,7 +2097,7 @@ function startSlowGrowth() {
 
 
 // ==========================================
-// 37. CRECIMIENTO LENTO PEQUEÑAS
+// 30. FLORES PEQUEÑAS LENTAS
 // ==========================================
 
 function startSlowGroundGrowth() {
@@ -1898,7 +2180,7 @@ function stopSlowGroundGrowth() {
 
 
 // ==========================================
-// 38. FLOR AUTOMÁTICA LENTA
+// 31. AUTOMÁTICA LENTA
 // ==========================================
 
 function createSlowAutomaticFlower() {
@@ -1965,12 +2247,13 @@ function createSlowAutomaticFlower() {
 
 
 // ==========================================
-// 39. POSICIÓN LENTA
+// 32. POSICIÓN LENTA
 // ==========================================
 
 function findSlowGrowthPosition() {
 
-  const ATTEMPTS = 40;
+  const ATTEMPTS =
+    42;
 
 
   if (
@@ -2009,8 +2292,8 @@ function findSlowGrowthPosition() {
 
     const distance =
       randomBetween(
-        65,
-        165
+        62,
+        160
       );
 
 
@@ -2032,12 +2315,12 @@ function findSlowGrowthPosition() {
 
     y +=
       randomBetween(
-        5,
+        8,
         30
       );
 
 
-    const safePosition =
+    const safe =
       keepAutomaticFlowerOnScreen(
         x,
         y
@@ -2045,10 +2328,10 @@ function findSlowGrowthPosition() {
 
 
     x =
-      safePosition.x;
+      safe.x;
 
     y =
-      safePosition.y;
+      safe.y;
 
 
     const score =
@@ -2079,7 +2362,7 @@ function findSlowGrowthPosition() {
   if (
     bestScore <
     PREFERRED_FLOWER_DISTANCE *
-    0.72
+    0.70
   ) {
 
     return null;
@@ -2092,7 +2375,7 @@ function findSlowGrowthPosition() {
 
 
 // ==========================================
-// 40. FASE RÁPIDA
+// 33. FASE RÁPIDA
 // ==========================================
 
 function startFastGrowth() {
@@ -2162,7 +2445,7 @@ function startFastGrowth() {
 
 
 // ==========================================
-// 41. PEQUEÑAS RÁPIDAS
+// 34. PEQUEÑAS RÁPIDAS
 // ==========================================
 
 function beginFastGroundGrowth() {
@@ -2227,7 +2510,7 @@ function beginFastGroundGrowth() {
 
 
 // ==========================================
-// 42. CREAR PEQUEÑA
+// 35. CREAR FLOR PEQUEÑA
 // ==========================================
 
 function createNextGroundFlower() {
@@ -2278,45 +2561,49 @@ function createNextGroundFlower() {
 
 
 // ==========================================
-// 43. POSICIONES PEQUEÑAS
+// 36. POSICIONES PEQUEÑAS
 // ==========================================
 
 function findNextGroundFlowerPosition() {
 
+  /*
+    Siguen existiendo huecos deliberados.
+    No llenamos una cuadrícula.
+  */
   const anchors = [
 
-    { x: 0.10, y: 0.12 },
+    { x: 0.12, y: 0.15 },
 
-    { x: 0.30, y: 0.16 },
+    { x: 0.35, y: 0.17 },
 
-    { x: 0.50, y: 0.12 },
+    { x: 0.64, y: 0.13 },
 
-    { x: 0.70, y: 0.18 },
-
-    { x: 0.88, y: 0.15 },
+    { x: 0.86, y: 0.20 },
 
 
-    { x: 0.18, y: 0.36 },
+    { x: 0.20, y: 0.38 },
 
-    { x: 0.42, y: 0.38 },
+    { x: 0.48, y: 0.37 },
 
-    { x: 0.65, y: 0.36 },
-
-    { x: 0.84, y: 0.43 },
+    { x: 0.76, y: 0.41 },
 
 
-    { x: 0.10, y: 0.60 },
+    { x: 0.10, y: 0.59 },
 
-    { x: 0.31, y: 0.64 },
+    { x: 0.32, y: 0.63 },
 
-    { x: 0.54, y: 0.59 },
+    { x: 0.58, y: 0.57 },
 
-    { x: 0.77, y: 0.66 },
+    { x: 0.84, y: 0.65 },
 
 
-    { x: 0.35, y: 0.82 },
+    { x: 0.20, y: 0.80 },
 
-    { x: 0.70, y: 0.80 }
+    { x: 0.43, y: 0.84 },
+
+    { x: 0.68, y: 0.78 },
+
+    { x: 0.88, y: 0.88 }
 
   ];
 
@@ -2330,7 +2617,7 @@ function findNextGroundFlowerPosition() {
 
 
   const ATTEMPTS =
-    24;
+    26;
 
 
   const topMargin =
@@ -2345,7 +2632,7 @@ function findNextGroundFlowerPosition() {
 
       field.clientHeight -
       topMargin -
-      20
+      16
 
     );
 
@@ -2379,19 +2666,19 @@ function findNextGroundFlowerPosition() {
 
     x +=
       randomBetween(
-        -35,
-        35
+        -32,
+        32
       );
 
 
     y +=
       randomBetween(
-        -30,
-        30
+        -27,
+        27
       );
 
 
-    const safePosition =
+    const safe =
       keepAutomaticFlowerOnScreen(
         x,
         y
@@ -2399,10 +2686,10 @@ function findNextGroundFlowerPosition() {
 
 
     x =
-      safePosition.x;
+      safe.x;
 
     y =
-      safePosition.y;
+      safe.y;
 
 
     const score =
@@ -2433,7 +2720,7 @@ function findNextGroundFlowerPosition() {
   if (
     bestScore <
     PREFERRED_FLOWER_DISTANCE *
-    0.32
+    0.29
   ) {
 
     return null;
@@ -2446,7 +2733,7 @@ function findNextGroundFlowerPosition() {
 
 
 // ==========================================
-// 44. GRANDES RÁPIDAS
+// 37. CAMPO RÁPIDO
 // ==========================================
 
 function beginFastFieldFill() {
@@ -2547,13 +2834,13 @@ function beginFastFieldFill() {
 
 
 // ==========================================
-// 45. POSICIÓN RÁPIDA
+// 38. POSICIÓN RÁPIDA
 // ==========================================
 
 function findFastGrowthPosition() {
 
   const ATTEMPTS =
-    55;
+    65;
 
 
   let bestCandidate =
@@ -2568,10 +2855,10 @@ function findFastGrowthPosition() {
 
 
   const horizontalMargin =
-    20;
+    18;
 
   const bottomMargin =
-    8;
+    7;
 
 
   const maximumY =
@@ -2610,11 +2897,17 @@ function findFastGrowthPosition() {
       );
 
 
+    /*
+      Exponente inferior a 1:
+
+      más candidatos hacia la mitad
+      inferior del campo.
+    */
     const verticalBias =
 
       Math.pow(
         Math.random(),
-        0.72
+        0.58
       );
 
 
@@ -2657,7 +2950,7 @@ function findFastGrowthPosition() {
   if (
     bestScore <
     PREFERRED_FLOWER_DISTANCE *
-    0.5
+    0.48
   ) {
 
     return null;
@@ -2668,10 +2961,6 @@ function findFastGrowthPosition() {
   return bestCandidate;
 }
 
-
-// ==========================================
-// 46. TERMINAR GRANDES
-// ==========================================
 
 function finishFastGrowth() {
 
@@ -2694,7 +2983,7 @@ function finishFastGrowth() {
 
 
 // ==========================================
-// 47. ZONA SEGURA
+// 39. ZONA SEGURA
 // ==========================================
 
 function getAutomaticTopMargin() {
@@ -2714,14 +3003,14 @@ function getAutomaticTopMargin() {
 
 
   const flowerSafetySpace =
-    88;
+    72;
 
 
   const desiredMargin =
 
     Math.max(
 
-      165,
+      150,
 
       narrativeBottom +
       flowerSafetySpace
@@ -2735,10 +3024,10 @@ function getAutomaticTopMargin() {
 
     Math.max(
 
-      165,
+      150,
 
       field.clientHeight -
-      80
+      78
 
     )
 
@@ -2746,17 +3035,13 @@ function getAutomaticTopMargin() {
 }
 
 
-// ==========================================
-// 48. LIMITAR POSICIÓN
-// ==========================================
-
 function keepAutomaticFlowerOnScreen(
   x,
   y
 ) {
 
   const horizontalMargin =
-    20;
+    18;
 
 
   const topMargin =
@@ -2764,7 +3049,7 @@ function keepAutomaticFlowerOnScreen(
 
 
   const bottomMargin =
-    8;
+    7;
 
 
   return {
@@ -2811,7 +3096,7 @@ function keepAutomaticFlowerOnScreen(
 
 
 // ==========================================
-// 49. DISTANCIA
+// 40. DISTANCIA
 // ==========================================
 
 function getMinimumDistanceToFlowers(
@@ -2875,7 +3160,7 @@ function getMinimumDistanceToFlowers(
 
 
 // ==========================================
-// 50. CREAR FLOR
+// 41. CREAR FLOR
 // ==========================================
 
 function createFlower(
@@ -2900,7 +3185,8 @@ function createFlower(
 
 
   const stable =
-    options.stable === true;
+    options.stable ===
+    true;
 
 
   const depth =
@@ -2958,7 +3244,7 @@ function createFlower(
 
 
   // ========================================
-  // SERIAL GRANDES
+  // SERIAL
   // ========================================
 
   if (
@@ -2986,13 +3272,13 @@ function createFlower(
           )
         )
 
-      : (
+      : flowerVariantDeck[
           (
             largeFlowerSerial -
             1
           ) %
-          3
-        );
+          flowerVariantDeck.length
+        ];
 
 
   flower.classList.add(
@@ -3007,6 +3293,9 @@ function createFlower(
   let isSpecialFlower =
     false;
 
+  let isFinalSecretFlower =
+    false;
+
   let assignedMessage =
     null;
 
@@ -3015,44 +3304,73 @@ function createFlower(
     !isGroundFlower &&
     SPECIAL_FLOWER_SLOTS.includes(
       largeFlowerSerial
-    ) &&
-    specialFlowerCount <
-    SPECIAL_FLOWER_TARGET
+    )
   ) {
 
-    isSpecialFlower =
-      true;
+    /*
+      La flor número 25 todavía NO es especial.
+
+      Existe visualmente como una flor normal
+      hasta que Sara descubra las otras 12.
+    */
+    if (
+      largeFlowerSerial ===
+      FINAL_SECRET_FLOWER_SLOT
+    ) {
+
+      isFinalSecretFlower =
+        true;
+
+    }
+
+    else if (
+      specialFlowerCount <
+      REGULAR_SPECIAL_FLOWER_TARGET
+    ) {
+
+      isSpecialFlower =
+        true;
 
 
-    assignedMessage =
+      assignedMessage =
 
-      specialMessageDeck[
-        specialFlowerCount
-      ];
+        specialMessageDeck[
+          specialFlowerCount
+        ];
 
 
-    specialFlowerCount +=
-      1;
+      specialFlowerCount +=
+        1;
+
+    }
 
   }
 
 
   // ========================================
-  // ESCALA
+  // PROFUNDIDAD Y ESCALA
   // ========================================
 
+  /*
+    Mucho más evidente que antes:
+
+    arriba -> pequeña
+    abajo  -> mayor
+
+    Sigue siendo delicada.
+  */
   const depthScale =
 
     isGroundFlower
 
       ? (
-          0.64 +
-          depth * 0.22
+          0.57 +
+          depth * 0.24
         )
 
       : (
-          0.64 +
-          depth * 0.40
+          0.58 +
+          depth * 0.37
         );
 
 
@@ -3061,7 +3379,8 @@ function createFlower(
 
   if (stable) {
 
-    randomScale = 1;
+    randomScale =
+      1;
 
   }
 
@@ -3071,20 +3390,8 @@ function createFlower(
 
     randomScale =
       randomBetween(
-        0.95,
-        1.06
-      );
-
-  }
-
-  else if (
-    isGroundFlower
-  ) {
-
-    randomScale =
-      randomBetween(
-        0.93,
-        1.06
+        0.94,
+        1.05
       );
 
   }
@@ -3093,8 +3400,8 @@ function createFlower(
 
     randomScale =
       randomBetween(
-        0.86,
-        1.05
+        0.88,
+        1.04
       );
 
   }
@@ -3107,7 +3414,23 @@ function createFlower(
 
 
   // ========================================
-  // ORIENTACIÓN
+  // PROFUNDIDAD POR LUZ
+  // ========================================
+
+  const depthBrightness =
+
+    0.82 +
+    depth * 0.20;
+
+
+  const depthSaturation =
+
+    0.84 +
+    depth * 0.18;
+
+
+  // ========================================
+  // ROTACIÓN
   // ========================================
 
   const bodyRotation =
@@ -3119,13 +3442,13 @@ function createFlower(
       : isGroundFlower
 
         ? randomBetween(
-            -9,
-            9
+            -8,
+            8
           )
 
         : randomBetween(
-            -3.2,
-            3.2
+            -3,
+            3
           );
 
 
@@ -3136,20 +3459,26 @@ function createFlower(
       ? 0
 
       : randomBetween(
-          -18,
-          18
+          -16,
+          16
         );
 
 
+  /*
+    Perspectiva superior.
+
+    0.84–0.91 conserva algo
+    de sensación lateral.
+  */
   const bloomSquash =
 
     stable
 
-      ? 0.87
+      ? 0.88
 
       : randomBetween(
-          0.83,
-          0.92
+          0.84,
+          0.91
         );
 
 
@@ -3162,13 +3491,13 @@ function createFlower(
     isGroundFlower
 
       ? randomBetween(
-          7.2,
-          10
+          8.4,
+          11.4
         )
 
       : randomBetween(
-          4.8,
-          7.2
+          6.3,
+          9.4
         );
 
 
@@ -3181,7 +3510,7 @@ function createFlower(
 
 
   // ========================================
-  // ONDA FINAL
+  // RÁFAGA FINAL
   // ========================================
 
   const horizontalProgress =
@@ -3208,7 +3537,7 @@ function createFlower(
 
     randomBetween(
       0,
-      90
+      80
     );
 
 
@@ -3223,30 +3552,55 @@ function createFlower(
 
 
   // ========================================
+  // IMPERFECCIONES
+  // ========================================
+
+  const organic = {
+
+    centerX:
+      stable
+        ? 0
+        : randomBetween(
+            -0.7,
+            0.7
+          ),
+
+    centerY:
+      stable
+        ? 0
+        : randomBetween(
+            -0.4,
+            0.35
+          )
+
+  };
+
+
+  // ========================================
   // VARIABLES CSS
   // ========================================
 
   flower.style.setProperty(
     '--flower-scale',
-    scale.toFixed(2)
+    scale.toFixed(3)
   );
 
 
   flower.style.setProperty(
     '--flower-rotation',
-    `${bodyRotation.toFixed(1)}deg`
+    `${bodyRotation.toFixed(2)}deg`
   );
 
 
   flower.style.setProperty(
     '--bloom-rotation',
-    `${bloomRotation.toFixed(1)}deg`
+    `${bloomRotation.toFixed(2)}deg`
   );
 
 
   flower.style.setProperty(
     '--bloom-squash',
-    bloomSquash.toFixed(2)
+    bloomSquash.toFixed(3)
   );
 
 
@@ -3265,6 +3619,18 @@ function createFlower(
   flower.style.setProperty(
     '--wave-delay',
     `${waveDelay.toFixed(0)}ms`
+  );
+
+
+  flower.style.setProperty(
+    '--depth-brightness',
+    depthBrightness.toFixed(3)
+  );
+
+
+  flower.style.setProperty(
+    '--depth-saturation',
+    depthSaturation.toFixed(3)
   );
 
 
@@ -3303,19 +3669,41 @@ function createFlower(
 
 
   // ========================================
+  // FLOR SECRETA FINAL
+  // ========================================
+
+  if (
+    isFinalSecretFlower
+  ) {
+
+    flower.dataset.finalSecret =
+      'true';
+
+
+    /*
+      Guardamos la referencia, pero todavía
+      no le damos brillo ni interacción.
+    */
+    finalSecretFlower =
+      flower;
+
+  }
+
+
+  // ========================================
   // ID SVG
   // ========================================
 
   const svgId =
 
-    `f-${visualFlowerCount + 1}-${Math
+    `flower-${visualFlowerCount}-${Math
       .random()
       .toString(36)
-      .slice(2, 8)}`;
+      .slice(2, 7)}`;
 
 
   // ========================================
-  // CONFIGURAR ESPECIAL
+  // BRILLO ESPECIAL
   // ========================================
 
   if (
@@ -3344,11 +3732,6 @@ function createFlower(
         : -1;
 
 
-    /*
-      El ciclo puede ser relativamente
-      corto porque la mayor parte del
-      tiempo la flor permanece normal.
-    */
     const glintDuration =
       randomBetween(
         5.6,
@@ -3356,11 +3739,6 @@ function createFlower(
       );
 
 
-    /*
-      Delay negativo:
-      las ocho flores empiezan en
-      puntos diferentes del ciclo.
-    */
     const glintDelay =
 
       specialFlowerCount === 1
@@ -3388,10 +3766,6 @@ function createFlower(
     );
 
 
-    /*
-      Después de descubrirla,
-      tarda bastante más en repetir.
-    */
     flower.style.setProperty(
       '--glint-discovered-duration',
       `${randomBetween(
@@ -3407,21 +3781,6 @@ function createFlower(
   // HTML
   // ========================================
 
-  /*
-    IMPORTANTE:
-
-    Ya no agregamos ningún
-    <span class="special-glint">.
-
-    No existe ningún foco colocado
-    encima de la flor.
-
-    Todo el brillo ocurre directamente
-    sobre los grupos SVG:
-      .flower-heart
-      .flower-petals
-  */
-
   flower.innerHTML = `
 
     <div class="flower-grow">
@@ -3435,12 +3794,14 @@ function createFlower(
 
               ? getGroundFlowerSvg(
                   flowerVariant,
-                  svgId
+                  svgId,
+                  organic
                 )
 
               : getBaseFlowerSvg(
                   flowerVariant,
-                  svgId
+                  svgId,
+                  organic
                 )
           }
 
@@ -3452,10 +3813,6 @@ function createFlower(
 
   `;
 
-
-  // ========================================
-  // EVENTOS ESPECIALES
-  // ========================================
 
   if (
     isSpecialFlower
@@ -3492,6 +3849,24 @@ function createFlower(
   );
 
 
+  /*
+    Caso de seguridad:
+
+    si Sara ya encontró las 12 frases normales
+    antes de que la flor 25 terminara de aparecer,
+    la activamos en cuanto nace.
+  */
+  if (
+    isFinalSecretFlower &&
+    discoveredRegularSpecialCount >=
+      REGULAR_SPECIAL_FLOWER_TARGET
+  ) {
+
+    unlockFinalSecretFlower();
+
+  }
+
+
   createLocalIllumination(
     x,
     y,
@@ -3522,7 +3897,7 @@ function createFlower(
 
 
 // ==========================================
-// 51. PROFUNDIDAD
+// 42. CAPA POR PROFUNDIDAD
 // ==========================================
 
 function getFlowerLayer(
@@ -3530,7 +3905,7 @@ function getFlowerLayer(
 ) {
 
   if (
-    depth < 0.47
+    depth < 0.45
   ) {
 
     return flowersBackLayer;
@@ -3552,7 +3927,7 @@ function getFlowerLayer(
 
 
 // ==========================================
-// 52. GRADIENTES SVG
+// 43. GRADIENTES
 // ==========================================
 
 function getFlowerDefs(
@@ -3564,101 +3939,109 @@ function getFlowerDefs(
     <defs>
 
       <linearGradient
-        id="${svgId}-petal-light"
-        x1="0%"
-        y1="0%"
-        x2="0%"
-        y2="100%"
+        id="${svgId}-light"
+        x1="25%"
+        y1="5%"
+        x2="65%"
+        y2="95%"
       >
+
         <stop
           offset="0%"
           stop-color="var(--petal-light)"
         />
 
         <stop
-          offset="58%"
+          offset="55%"
           stop-color="var(--petal-main)"
         />
 
         <stop
           offset="100%"
           stop-color="var(--petal-deep)"
-          stop-opacity="0.88"
+          stop-opacity="0.82"
         />
+
       </linearGradient>
 
 
       <linearGradient
-        id="${svgId}-petal-main"
-        x1="16%"
+        id="${svgId}-main"
+        x1="12%"
         y1="8%"
-        x2="76%"
+        x2="80%"
         y2="92%"
       >
+
         <stop
           offset="0%"
           stop-color="var(--petal-light)"
-          stop-opacity="0.88"
+          stop-opacity="0.90"
         />
 
         <stop
-          offset="48%"
+          offset="50%"
           stop-color="var(--petal-main)"
         />
 
         <stop
           offset="100%"
           stop-color="var(--petal-deep)"
-          stop-opacity="0.94"
+          stop-opacity="0.92"
         />
+
       </linearGradient>
 
 
       <linearGradient
-        id="${svgId}-petal-deep"
+        id="${svgId}-deep"
         x1="20%"
         y1="0%"
-        x2="75%"
+        x2="70%"
         y2="100%"
       >
+
         <stop
           offset="0%"
           stop-color="var(--petal-main)"
         />
 
         <stop
-          offset="62%"
+          offset="68%"
           stop-color="var(--petal-deep)"
         />
 
         <stop
           offset="100%"
           stop-color="var(--petal-deep)"
-          stop-opacity="0.78"
+          stop-opacity="0.74"
         />
+
       </linearGradient>
 
 
       <radialGradient
         id="${svgId}-center"
-        cx="38%"
-        cy="32%"
-        r="72%"
+        cx="36%"
+        cy="30%"
+        r="74%"
       >
+
         <stop
           offset="0%"
           stop-color="var(--flower-center-light)"
         />
 
         <stop
-          offset="52%"
+          offset="50%"
           stop-color="var(--flower-center)"
         />
 
         <stop
           offset="100%"
-          stop-color="#6f4e16"
+          stop-color="#674715"
         />
+
       </radialGradient>
 
     </defs>
@@ -3668,7 +4051,7 @@ function getFlowerDefs(
 
 
 // ==========================================
-// 53. PÉTALO
+// 44. PÉTALO
 // ==========================================
 
 function createPetalMarkup(
@@ -3676,18 +4059,33 @@ function createPetalMarkup(
   petal
 ) {
 
+  const rest =
+
+    petal.rest +
+
+    randomBetween(
+      -0.8,
+      0.8
+    );
+
+
   return `
 
     <path
       class="petal"
       fill="url(#${svgId}-${petal.fill})"
+
       style="
         --petal-delay:
           ${petal.delay}ms;
 
         --petal-fold:
           ${petal.fold}deg;
+
+        --petal-rest:
+          ${rest.toFixed(2)}deg;
       "
+
       d="${petal.d}"
     />
 
@@ -3696,192 +4094,232 @@ function createPetalMarkup(
 
 
 // ==========================================
-// 54. CABEZA FLORAL
+// 45. CABEZA FLORAL
 // ==========================================
 
 function getFlowerHeadMarkup(
   variant,
-  svgId
+  svgId,
+  organic
 ) {
 
+  /*
+    VARIANTE 1
+
+    8 pétalos.
+    Cabeza abierta y delicada.
+  */
   const variantOne = [
 
     {
-      fill: 'petal-light',
-      delay: 160,
-      fold: -8,
+      fill: 'light',
+      delay: 130,
+      fold: -7,
+      rest: -0.5,
       d:
-        'M46.5 36 C43.2 29.5 44.2 18.5 50 12 C56.1 18 57.2 28.5 53 36 C51.2 39 48.2 39 46.5 36 Z'
+        'M47 39 C43 32 43.8 19 50 11 C56.8 18.5 57 31 53 39 C51.4 42 48.5 42 47 39 Z'
     },
 
     {
-      fill: 'petal-main',
+      fill: 'main',
+      delay: 165,
+      fold: 9,
+      rest: 0.8,
+      d:
+        'M54 38 C59 30 68 24 75 27 C76 35 69 42 59 44 C56 44.5 52 41 54 38 Z'
+    },
+
+    {
+      fill: 'deep',
       delay: 205,
       fold: 12,
+      rest: 1.2,
       d:
-        'M54 35 C58.8 28.4 67.3 23.3 74 26.5 C75 33.7 68 39.9 59 41 C56 41.3 52.8 38 54 35 Z'
+        'M59 44 C69 40 79 43 82 50 C78 57 68 59 59 54 C56 52 56 46 59 44 Z'
     },
 
     {
-      fill: 'petal-deep',
-      delay: 245,
-      fold: 14,
-      d:
-        'M58 41 C67 38.1 76.7 40.5 80 46.8 C76.4 53.5 66.5 55 58.5 50.2 C55.5 48.4 55.1 43.3 58 41 Z'
-    },
-
-    {
-      fill: 'petal-main',
-      delay: 295,
+      fill: 'main',
+      delay: 250,
       fold: 10,
+      rest: -0.2,
       d:
-        'M56 49 C64.1 51.8 69.4 59.6 66.3 65.8 C59.4 68.4 53.2 61.8 51.1 54.1 C50.2 50.9 52.9 47.9 56 49 Z'
+        'M58 53 C67 55 73 62 70 69 C63 72 55 66 52 58 C51 55 55 52 58 53 Z'
     },
 
     {
-      fill: 'petal-light',
-      delay: 340,
+      fill: 'light',
+      delay: 285,
+      fold: 3,
+      rest: -1.0,
+      d:
+        'M52 57 C55 66 51 75 44 77 C38 72 39 63 44 56 C46 53 50 54 52 57 Z'
+    },
+
+    {
+      fill: 'main',
+      delay: 255,
       fold: -10,
+      rest: 0.8,
       d:
-        'M48.5 52 C48 60.8 42.2 69 35.7 69.6 C31.3 63.7 35.2 54 43.1 49.2 C46 47.4 49 48.8 48.5 52 Z'
+        'M44 55 C38 63 28 66 22 61 C21 54 29 47 39 47 C43 47 46 52 44 55 Z'
     },
 
     {
-      fill: 'petal-main',
-      delay: 265,
-      fold: -14,
-      d:
-        'M42 49 C34 53.5 24.8 52.2 20.6 46.4 C23.8 40 34 38.2 42 41.3 C45 42.5 45 47 42 49 Z'
-    },
-
-    {
-      fill: 'petal-deep',
-      delay: 215,
+      fill: 'deep',
+      delay: 210,
       fold: -12,
+      rest: -1.1,
       d:
-        'M42 40 C33.3 39.3 27 33 28.2 26.2 C34.7 22 43 27 46.8 34.1 C48.4 37 45.3 40.2 42 40 Z'
+        'M40 48 C31 51 21 47 19 40 C24 34 34 34 42 39 C45 41 44 47 40 48 Z'
+    },
+
+    {
+      fill: 'main',
+      delay: 170,
+      fold: -8,
+      rest: -0.4,
+      d:
+        'M42 40 C34 38 29 30 32 24 C39 20 46 27 48 35 C49 38 45 41 42 40 Z'
     }
 
   ];
 
 
+  /*
+    VARIANTE 2
+
+    6 pétalos más amplios,
+    blandos y redondeados.
+  */
   const variantTwo = [
 
     {
-      fill: 'petal-light',
-      delay: 160,
+      fill: 'light',
+      delay: 135,
       fold: -7,
+      rest: -0.6,
       d:
-        'M45.5 36.5 C40.7 29.3 42.3 18.3 49.5 11.5 C57.5 17.5 59.2 29.2 54 37 C51.8 40.1 47.6 39.8 45.5 36.5 Z'
+        'M44 40 C38 30 40 18 49 10 C59 17 61 30 55 40 C52 44 47 44 44 40 Z'
     },
 
     {
-      fill: 'petal-main',
-      delay: 210,
-      fold: 13,
+      fill: 'main',
+      delay: 180,
+      fold: 11,
+      rest: 1,
       d:
-        'M54 36 C60.3 28.2 71.2 24.2 77.4 29.2 C77.2 37.2 68.3 43.6 59.1 43 C55.5 42.8 52 39.4 54 36 Z'
+        'M55 39 C62 29 75 25 82 32 C81 42 70 49 59 47 C55 46 52 42 55 39 Z'
     },
 
     {
-      fill: 'petal-deep',
+      fill: 'deep',
+      delay: 230,
+      fold: 11,
+      rest: 0.3,
+      d:
+        'M60 48 C71 47 81 53 81 62 C74 70 62 67 54 58 C51 54 56 49 60 48 Z'
+    },
+
+    {
+      fill: 'light',
       delay: 280,
-      fold: 13,
-      d:
-        'M58.5 44 C68.1 43.2 77 48.2 77.3 55.5 C71.3 62.2 60.8 59.8 54.2 52.1 C51.8 49.1 54.8 44.3 58.5 44 Z'
-    },
-
-    {
-      fill: 'petal-light',
-      delay: 340,
       fold: 2,
+      rest: -0.7,
       d:
-        'M54 51.5 C59.4 60 57 69.1 50 73.2 C42.8 69.4 40.8 59.8 46.2 51.6 C48.1 48.9 52 48.7 54 51.5 Z'
+        'M55 57 C61 67 58 78 49 82 C40 77 38 65 45 56 C48 52 53 53 55 57 Z'
     },
 
     {
-      fill: 'petal-main',
-      delay: 275,
-      fold: -13,
+      fill: 'main',
+      delay: 235,
+      fold: -12,
+      rest: 0.9,
       d:
-        'M45.7 52 C38.5 59.3 28.4 61.3 22.6 55.7 C22.9 48.3 31.8 43.2 41.1 44.6 C44.9 45.2 48 49.1 45.7 52 Z'
+        'M44 58 C35 67 23 69 17 62 C18 52 29 46 40 48 C44 49 47 54 44 58 Z'
     },
 
     {
-      fill: 'petal-deep',
-      delay: 215,
-      fold: -13,
+      fill: 'deep',
+      delay: 185,
+      fold: -11,
+      rest: -1,
       d:
-        'M41.4 43 C32.1 43.4 23.1 37.2 22.8 30 C28.7 23.8 39.8 27.2 46 35.7 C48.2 38.7 45 42.8 41.4 43 Z'
+        'M40 48 C29 49 18 42 19 33 C26 25 39 29 46 39 C49 43 45 48 40 48 Z'
     }
 
   ];
 
 
+  /*
+    VARIANTE 3
+
+    7 pétalos más estrechos,
+    silvestres y ligeramente irregulares.
+  */
   const variantThree = [
 
     {
-      fill: 'petal-light',
-      delay: 150,
+      fill: 'light',
+      delay: 125,
       fold: -8,
+      rest: -1.2,
       d:
-        'M47 36 C43.9 29.6 45 18.6 50 12.4 C55.6 18.2 56.7 29.1 53 36.2 C51.5 39 48.5 39 47 36 Z'
+        'M47 39 C44 31 45 17 50 9 C56 17 57 30 53 39 C51 42 48 42 47 39 Z'
     },
 
     {
-      fill: 'petal-main',
-      delay: 185,
-      fold: 10,
+      fill: 'main',
+      delay: 160,
+      fold: 9,
+      rest: 1.1,
       d:
-        'M53.5 35.8 C57.2 28.5 64.5 23.4 70.6 24.8 C73 31.6 67.2 38.6 58.8 40.5 C55.7 41.2 52.2 38.8 53.5 35.8 Z'
+        'M54 38 C58 29 66 21 73 23 C77 31 70 41 59 44 C56 45 52 41 54 38 Z'
     },
 
     {
-      fill: 'petal-deep',
-      delay: 230,
-      fold: 14,
-      d:
-        'M58 40.6 C65.9 36.9 75.5 38.7 79.3 44 C77 50.9 67.7 53 59.1 49.4 C56.1 48.1 55.1 42.5 58 40.6 Z'
-    },
-
-    {
-      fill: 'petal-main',
-      delay: 285,
+      fill: 'deep',
+      delay: 205,
       fold: 13,
+      rest: 1.8,
       d:
-        'M58.2 48.2 C66.2 49.4 72.4 56.2 70.3 62.1 C64.5 66.4 56.5 61.7 52.6 54 C51.2 51.1 55 47.7 58.2 48.2 Z'
+        'M59 44 C69 39 81 41 85 48 C82 57 70 60 59 54 C56 52 56 46 59 44 Z'
     },
 
     {
-      fill: 'petal-light',
-      delay: 335,
-      fold: 4,
+      fill: 'main',
+      delay: 255,
+      fold: 11,
+      rest: -0.7,
       d:
-        'M53 52 C56.3 59.8 53.5 68.1 47.9 71 C42.1 66.7 42.1 57.8 46.7 51.1 C48.5 48.6 51.8 49.1 53 52 Z'
+        'M58 53 C68 54 76 62 74 69 C67 75 57 68 52 58 C50 55 55 52 58 53 Z'
     },
 
     {
-      fill: 'petal-main',
-      delay: 300,
-      fold: -12,
+      fill: 'light',
+      delay: 290,
+      fold: 1,
+      rest: 1.4,
       d:
-        'M45.7 51.2 C40.6 58.3 31.8 62.2 26.9 58.3 C25 51.9 32.1 45.5 40.8 44.8 C44.2 44.5 47.7 48.2 45.7 51.2 Z'
+        'M52 57 C56 68 52 79 45 82 C37 76 39 64 44 56 C46 53 51 54 52 57 Z'
     },
 
     {
-      fill: 'petal-deep',
+      fill: 'main',
       delay: 245,
-      fold: -14,
+      fold: -12,
+      rest: -1.7,
       d:
-        'M41.3 47.3 C33.4 50.2 24.4 47.8 21.8 42 C25.1 35.8 34.5 35.6 42.2 40.2 C45 42.1 44.3 46.3 41.3 47.3 Z'
+        'M44 55 C37 65 25 69 19 64 C17 56 27 47 39 47 C43 47 46 52 44 55 Z'
     },
 
     {
-      fill: 'petal-main',
-      delay: 195,
-      fold: -11,
+      fill: 'deep',
+      delay: 185,
+      fold: -12,
+      rest: -0.5,
       d:
-        'M42.4 40 C35.3 38.9 29.8 32.4 31.4 26.6 C37.6 23.1 44.5 28.3 47 34.7 C48.3 37.6 45.5 40.5 42.4 40 Z'
+        'M41 47 C31 50 20 45 19 37 C25 30 37 32 44 39 C47 42 45 46 41 47 Z'
     }
 
   ];
@@ -3910,21 +4348,24 @@ function getFlowerHeadMarkup(
   const centers = [
 
     {
-      cy: 41.2,
-      rx: 9.8,
-      ry: 6.8
-    },
-
-    {
-      cy: 42.1,
+      cx: 50,
+      cy: 47,
       rx: 9.2,
-      ry: 6.4
+      ry: 6.5
     },
 
     {
-      cy: 41.4,
-      rx: 8.8,
-      ry: 6.1
+      cx: 50,
+      cy: 49,
+      rx: 8.1,
+      ry: 5.8
+    },
+
+    {
+      cx: 49.5,
+      cy: 47,
+      rx: 8.5,
+      ry: 5.9
     }
 
   ];
@@ -3934,20 +4375,29 @@ function getFlowerHeadMarkup(
     centers[variant];
 
 
-  /*
-    CAMBIO IMPORTANTE:
+  const centerX =
 
-    Los pétalos y el centro quedan
-    agrupados por separado.
+    center.cx +
+    organic.centerX;
 
-    Esto permite que el brillo nazca
-    en .flower-heart y luego viaje
-    a .flower-petals.
-  */
+
+  const centerY =
+
+    center.cy +
+    organic.centerY;
+
 
   return `
 
     <g class="flower-bloom">
+
+      <ellipse
+        class="bloom-under-shadow"
+        cx="50"
+        cy="55"
+        rx="24"
+        ry="9"
+      />
 
 
       <g class="flower-petals">
@@ -3961,18 +4411,18 @@ function getFlowerHeadMarkup(
 
         <ellipse
           class="flower-center-shadow"
-          cx="50"
-          cy="${center.cy + 2.1}"
-          rx="${center.rx + 1.2}"
-          ry="${center.ry + 0.9}"
-          fill="#694b19"
+          cx="${(centerX + 0.3).toFixed(2)}"
+          cy="${(centerY + 1.8).toFixed(2)}"
+          rx="${center.rx + 1.0}"
+          ry="${center.ry + 0.8}"
+          fill="#654715"
         />
 
 
         <ellipse
           class="flower-center"
-          cx="50"
-          cy="${center.cy}"
+          cx="${centerX.toFixed(2)}"
+          cy="${centerY.toFixed(2)}"
           rx="${center.rx}"
           ry="${center.ry}"
           fill="url(#${svgId}-center)"
@@ -3981,51 +4431,41 @@ function getFlowerHeadMarkup(
 
         <ellipse
           class="flower-center-light"
-          cx="46.8"
-          cy="${center.cy - 2.3}"
-          rx="2.7"
-          ry="1.7"
+          cx="${(centerX - 2.7).toFixed(2)}"
+          cy="${(centerY - 2.0).toFixed(2)}"
+          rx="2.4"
+          ry="1.45"
           fill="var(--flower-center-light)"
         />
 
 
         <circle
           class="center-speck"
-          cx="48"
-          cy="${center.cy + 1}"
-          r="0.85"
-          fill="var(--flower-center-light)"
-        />
-
-
-        <circle
-          class="center-speck"
-          cx="52.3"
-          cy="${center.cy - 0.8}"
-          r="0.75"
-          fill="var(--flower-center-light)"
-        />
-
-
-        <circle
-          class="center-speck"
-          cx="53"
-          cy="${center.cy + 2}"
-          r="0.65"
+          cx="${(centerX - 1.2).toFixed(2)}"
+          cy="${(centerY + 0.8).toFixed(2)}"
+          r="0.7"
           fill="#e0b347"
         />
 
 
         <circle
           class="center-speck"
-          cx="46.3"
-          cy="${center.cy - 0.3}"
+          cx="${(centerX + 2.0).toFixed(2)}"
+          cy="${(centerY - 0.5).toFixed(2)}"
           r="0.65"
-          fill="#e0b347"
+          fill="var(--flower-center-light)"
+        />
+
+
+        <circle
+          class="center-speck"
+          cx="${(centerX + 2.4).toFixed(2)}"
+          cy="${(centerY + 1.6).toFixed(2)}"
+          r="0.55"
+          fill="#ddb044"
         />
 
       </g>
-
 
     </g>
 
@@ -4034,13 +4474,21 @@ function getFlowerHeadMarkup(
 
 
 // ==========================================
-// 55. FLOR COMPLETA
+// 46. FLOR GRANDE
 // ==========================================
 
 function getBaseFlowerSvg(
   variant,
-  svgId
+  svgId,
+  organic
 ) {
+
+  /*
+    Tallo muy corto.
+
+    La cabeza ocupa visualmente
+    casi toda la flor.
+  */
 
   if (
     variant === 0
@@ -4050,7 +4498,7 @@ function getBaseFlowerSvg(
 
       <svg
         class="flower-svg"
-        viewBox="0 0 100 120"
+        viewBox="0 0 100 112"
         xmlns="http://www.w3.org/2000/svg"
       >
 
@@ -4061,10 +4509,10 @@ function getBaseFlowerSvg(
           class="flower-stem-shadow"
           pathLength="1"
           d="
-            M51 116
-            C50 99,
-             54 82,
-             50 57
+            M51 109
+            C51 92,
+             52 77,
+             50 61
           "
         />
 
@@ -4073,31 +4521,25 @@ function getBaseFlowerSvg(
           class="flower-stem"
           pathLength="1"
           d="
-            M49.5 116
-            C48.8 99,
-             52.5 82,
-             49 56
+            M49.5 109
+            C49.6 92,
+             51 77,
+             49 61
           "
         />
 
 
         <path
           class="flower-leaf"
-          style="
-            --leaf-delay:
-              360ms;
-          "
+          style="--leaf-delay: 300ms;"
           d="
-            M49 84
-            C42 79,
-             35 72,
-             31 66
-            C39 68,
+            M49 82
+            C43 78,
+             37 73,
+             34 68
+            C41 69,
              46 73,
-             50 80
-            C50.5 82,
-             50 83.5,
-             49 84
+             50 78
             Z
           "
         />
@@ -4106,54 +4548,25 @@ function getBaseFlowerSvg(
         <path
           class="leaf-vein"
           d="
-            M48.5 82
-            C42 76,
-             37 71,
-             33 68
+            M48 80
+            C43 76,
+             39 72,
+             35 69
           "
         />
 
 
         <path
           class="flower-leaf-light"
-          style="
-            --leaf-delay:
-              430ms;
-          "
+          style="--leaf-delay: 350ms;"
           d="
-            M50.5 74
-            C56 68,
-             62 64,
-             67 65
-            C64 71,
-             58 76,
-             51 78
-            Z
-          "
-        />
-
-
-        <path
-          class="leaf-vein"
-          d="
-            M52 76
-            C57 71,
-             61 68,
-             65 66
-          "
-        />
-
-
-        <path
-          class="flower-calyx-dark"
-          d="
-            M40 52
-            C44 49,
-             56 49,
-             60 52
-            C56 58,
-             44 58,
-             40 52
+            M50 75
+            C55 70,
+             60 68,
+             64 69
+            C61 74,
+             56 77,
+             51 79
             Z
           "
         />
@@ -4161,7 +4574,8 @@ function getBaseFlowerSvg(
 
         ${getFlowerHeadMarkup(
           variant,
-          svgId
+          svgId,
+          organic
         )}
 
       </svg>
@@ -4178,7 +4592,7 @@ function getBaseFlowerSvg(
 
       <svg
         class="flower-svg"
-        viewBox="0 0 100 120"
+        viewBox="0 0 100 112"
         xmlns="http://www.w3.org/2000/svg"
       >
 
@@ -4189,10 +4603,10 @@ function getBaseFlowerSvg(
           class="flower-stem-shadow"
           pathLength="1"
           d="
-            M52 116
-            C55 98,
-             48 80,
-             50 57
+            M50 109
+            C53 93,
+             48 79,
+             50 62
           "
         />
 
@@ -4201,28 +4615,25 @@ function getBaseFlowerSvg(
           class="flower-stem"
           pathLength="1"
           d="
-            M50.5 116
-            C53.4 98,
-             46.8 80,
-             49 56
+            M48.8 109
+            C51.5 93,
+             46.8 79,
+             49 62
           "
         />
 
 
         <path
           class="flower-leaf"
-          style="
-            --leaf-delay:
-              390ms;
-          "
+          style="--leaf-delay: 320ms;"
           d="
-            M49.5 87
-            C55 80,
+            M49 83
+            C55 78,
              61 75,
-             66 76
-            C63 83,
-             57 88,
-             50 90
+             65 76
+            C62 82,
+             56 86,
+             50 87
             Z
           "
         />
@@ -4231,62 +4642,18 @@ function getBaseFlowerSvg(
         <path
           class="leaf-vein"
           d="
-            M51 88
-            C56 83,
-             60 79,
-             64 77
-          "
-        />
-
-
-        <path
-          class="flower-leaf-light"
-          style="
-            --leaf-delay:
-              450ms;
-          "
-          d="
-            M48.5 76
-            C42 72,
-             36 66,
-             33 61
-            C40 62,
-             46 67,
-             50 73
-            Z
-          "
-        />
-
-
-        <path
-          class="leaf-vein"
-          d="
-            M48.5 74
-            C43 69,
-             38 65,
-             35 63
-          "
-        />
-
-
-        <path
-          class="flower-calyx-dark"
-          d="
-            M40 52
-            C44 49,
-             56 49,
-             60 52
-            C56 58,
-             44 58,
-             40 52
-            Z
+            M51 85
+            C56 81,
+             60 78,
+             63 77
           "
         />
 
 
         ${getFlowerHeadMarkup(
           variant,
-          svgId
+          svgId,
+          organic
         )}
 
       </svg>
@@ -4299,7 +4666,7 @@ function getBaseFlowerSvg(
 
     <svg
       class="flower-svg"
-      viewBox="0 0 100 120"
+      viewBox="0 0 100 112"
       xmlns="http://www.w3.org/2000/svg"
     >
 
@@ -4310,10 +4677,10 @@ function getBaseFlowerSvg(
         class="flower-stem-shadow"
         pathLength="1"
         d="
-          M48.5 116
-          C46.5 97,
-           53.5 81,
-           50 57
+          M49 109
+          C47 94,
+           52 79,
+           50 62
         "
       />
 
@@ -4322,27 +4689,24 @@ function getBaseFlowerSvg(
         class="flower-stem"
         pathLength="1"
         d="
-          M47.2 116
-          C45.5 97,
-           52 81,
-           49 56
+          M47.8 109
+          C46 94,
+           51 79,
+           49 62
         "
       />
 
 
       <path
         class="flower-leaf"
-        style="
-          --leaf-delay:
-            370ms;
-        "
+        style="--leaf-delay: 315ms;"
         d="
-          M48 82
-          C41 78,
-           36 73,
-           34 68
-          C40 69,
-           46 73,
+          M48 80
+          C42 77,
+           37 73,
+           35 69
+          C41 70,
+           46 74,
            49 78
           Z
         "
@@ -4352,62 +4716,18 @@ function getBaseFlowerSvg(
       <path
         class="leaf-vein"
         d="
-          M47.5 80
-          C42 76,
+          M47 79
+          C42 75,
            38 72,
-           35 69
-        "
-      />
-
-
-      <path
-        class="flower-leaf-light"
-        style="
-          --leaf-delay:
-            440ms;
-        "
-        d="
-          M49.7 69
-          C55 65,
-           60 63,
-           64 65
-          C61 70,
-           56 73,
-           50 74
-          Z
-        "
-      />
-
-
-      <path
-        class="leaf-vein"
-        d="
-          M51 72
-          C55 69,
-           59 66,
-           62 65
-        "
-      />
-
-
-      <path
-        class="flower-calyx-dark"
-        d="
-          M40 52
-          C44 49,
-           56 49,
-           60 52
-          C56 58,
-           44 58,
-           40 52
-          Z
+           36 70
         "
       />
 
 
       ${getFlowerHeadMarkup(
         variant,
-        svgId
+        svgId,
+        organic
       )}
 
     </svg>
@@ -4417,12 +4737,13 @@ function getBaseFlowerSvg(
 
 
 // ==========================================
-// 56. FLOR PEQUEÑA
+// 47. FLOR PEQUEÑA
 // ==========================================
 
 function getGroundFlowerSvg(
   variant,
-  svgId
+  svgId,
+  organic
 ) {
 
   return `
@@ -4439,21 +4760,22 @@ function getGroundFlowerSvg(
       <ellipse
         class="ground-bloom-shadow"
         cx="50"
-        cy="61"
-        rx="23"
-        ry="10"
+        cy="60"
+        rx="24"
+        ry="9"
       />
 
 
       <g
         transform="
-          translate(0 14)
+          translate(0 5)
         "
       >
 
         ${getFlowerHeadMarkup(
           variant,
-          svgId
+          svgId,
+          organic
         )}
 
       </g>
@@ -4465,7 +4787,7 @@ function getGroundFlowerSvg(
 
 
 // ==========================================
-// 57. ILUMINACIÓN LOCAL
+// 48. ILUMINACIÓN LOCAL
 // ==========================================
 
 function createLocalIllumination(
@@ -4489,7 +4811,7 @@ function createLocalIllumination(
 
     isGroundFlower
 
-      ? 0.80
+      ? 0.76
 
       : 1;
 
@@ -4516,8 +4838,8 @@ function createLocalIllumination(
   const revealSize =
 
     (
-      120 +
-      depth * 62
+      125 +
+      depth * 66
     ) *
     groundFactor;
 
@@ -4529,17 +4851,26 @@ function createLocalIllumination(
 
 
   revealPatch.style.setProperty(
+    '--reveal-rotation',
+    `${randomBetween(
+      -22,
+      22
+    ).toFixed(1)}deg`
+  );
+
+
+  revealPatch.style.setProperty(
     '--reveal-peak-opacity',
 
     manualStrength
 
-      ? '0.26'
+      ? '0.34'
 
       : isGroundFlower
 
-        ? '0.16'
+        ? '0.17'
 
-        : '0.20'
+        : '0.24'
   );
 
 
@@ -4548,11 +4879,11 @@ function createLocalIllumination(
 
     manualStrength
 
-      ? '0.115'
+      ? '0.13'
 
       : isGroundFlower
 
-        ? '0.070'
+        ? '0.055'
 
         : '0.085'
   );
@@ -4585,8 +4916,8 @@ function createLocalIllumination(
   const glowSize =
 
     (
-      90 +
-      depth * 46
+      88 +
+      depth * 42
     ) *
     groundFactor;
 
@@ -4598,17 +4929,22 @@ function createLocalIllumination(
 
 
   birthGlow.style.setProperty(
+    '--glow-rotation',
+    `${randomBetween(
+      -25,
+      25
+    ).toFixed(1)}deg`
+  );
+
+
+  birthGlow.style.setProperty(
     '--glow-peak-opacity',
 
     manualStrength
 
-      ? '0.30'
+      ? '0.28'
 
-      : isGroundFlower
-
-        ? '0.16'
-
-        : '0.22'
+      : '0.18'
   );
 
 
@@ -4617,13 +4953,9 @@ function createLocalIllumination(
 
     manualStrength
 
-      ? '0.135'
+      ? '0.12'
 
-      : isGroundFlower
-
-        ? '0.075'
-
-        : '0.10'
+      : '0.075'
   );
 
 
@@ -4638,13 +4970,13 @@ function createLocalIllumination(
       birthGlow.remove();
 
     },
-    1700
+    1650
   );
 }
 
 
 // ==========================================
-// 58. VEGETACIÓN CERCANA
+// 49. REVELAR VEGETACIÓN
 // ==========================================
 
 function revealNearbyVegetation(
@@ -4663,9 +4995,9 @@ function revealNearbyVegetation(
 
     type === 'user'
 
-      ? 0.52
+      ? 0.62
 
-      : 0.34;
+      : 0.36;
 
 
   if (
@@ -4674,18 +5006,7 @@ function revealNearbyVegetation(
   ) {
 
     strength =
-      0.36;
-
-  }
-
-
-  if (
-    type ===
-    'ground-accent'
-  ) {
-
-    strength =
-      0.24;
+      0.40;
 
   }
 
@@ -4695,7 +5016,7 @@ function revealNearbyVegetation(
   ) {
 
     strength *=
-      0.82;
+      0.72;
 
   }
 
@@ -4787,12 +5108,12 @@ function revealNearbyVegetation(
 
     cluster.element.style.opacity =
 
-      opacity.toFixed(2);
+      opacity.toFixed(3);
 
 
     if (
       cluster.revealLevel >
-      0.2
+      0.16
     ) {
 
       cluster.element.classList.add(
@@ -4805,7 +5126,7 @@ function revealNearbyVegetation(
 
 
 // ==========================================
-// 59. REVELADO GLOBAL
+// 50. REVELADO GLOBAL
 // ==========================================
 
 function updateAccumulatedFieldReveal() {
@@ -4831,12 +5152,15 @@ function updateAccumulatedFieldReveal() {
     );
 
 
+  /*
+    Incluso lleno, el campo sigue oscuro.
+  */
   const revealOpacity =
 
-    0.025 +
+    0.018 +
 
     progress *
-    0.15;
+    0.135;
 
 
   field.style.setProperty(
@@ -4847,7 +5171,7 @@ function updateAccumulatedFieldReveal() {
 
 
 // ==========================================
-// 60. AUXILIARES
+// 51. AUXILIARES
 // ==========================================
 
 function randomBetween(
@@ -4926,8 +5250,7 @@ function shuffleArray(
 
         Math.random() *
         (
-          index +
-          1
+          index + 1
         )
 
       );
@@ -4952,7 +5275,7 @@ function shuffleArray(
 
 
 // ==========================================
-// 61. EVENTOS
+// 52. EVENTOS
 // ==========================================
 
 startButton.addEventListener(
@@ -5025,7 +5348,7 @@ document.addEventListener(
 
 
 // ==========================================
-// 62. ESTADO INICIAL
+// 53. ESTADO INICIAL
 // ==========================================
 
 updateSoundButton();
